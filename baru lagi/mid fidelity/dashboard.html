@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Akademik SMKS TI-PGRI 11 SERPONG</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="midfi-app">
+        <header class="midfi-header">
+            <div class="header-left">
+                <h2>🏫 SMKS-TI PGRI 11 SERPONG</h2>
+                <p>Sistem Informasi Akademik</p>
+            </div>
+            <div class="header-right">
+                <span id="userDisplay">👤 Loading...</span>
+                <a href="#" id="logout">Logout</a>
+            </div>
+        </header>
+        
+        <div class="midfi-main">
+            <aside class="midfi-sidebar">
+                <nav>
+                    <div class="nav-item active" data-tab="home">🏠 Dashboard</div>
+                    <div class="nav-item" data-tab="jadwal">📅 Jadwal Pelajaran</div>
+                    <div class="nav-item" data-tab="nilai">⭐ Nilai & Raport</div>
+                    <div class="nav-item" data-tab="pelajaran">📚 Mata Pelajaran</div>
+                    <div class="nav-item" data-tab="tagihan">💰 Tagihan</div>
+                </nav>
+                <div class="sidebar-info">
+                    <small id="sidebarUserInfo">NIS: -</small>
+                </div>
+            </aside>
+            
+            <main class="midfi-content" id="dynamicContent">
+                <div class="loading">Memuat data akademik...</div>
+            </main>
+        </div>
+        
+        <footer class="midfi-footer">
+            © 2024 SMKS-TI PGRI 11 Serpong, All Rights Reserved.
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

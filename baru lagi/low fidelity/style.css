@@ -1,0 +1,192 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', 'Monaco', monospace;
+    background: #e0e0e0;
+    min-height: 100vh;
+}
+
+/* Login Page */
+.lofi-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #d0d0d0;
+}
+
+.lofi-box {
+    width: 420px;
+    background: white;
+    border: 3px solid #000;
+    padding: 20px;
+}
+
+.lofi-header {
+    text-align: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.lofi-badge {
+    font-size: 11px;
+    background: #ccc;
+    display: inline-block;
+    padding: 2px 8px;
+    margin-top: 8px;
+}
+
+.lofi-field {
+    margin-bottom: 16px;
+}
+
+.lofi-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.lofi-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #000;
+    background: white;
+    font-family: monospace;
+}
+
+.lofi-btn {
+    width: 100%;
+    padding: 10px;
+    background: #ccc;
+    border: 2px solid #000;
+    font-family: monospace;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 8px 0;
+}
+
+.lofi-link {
+    text-align: center;
+    margin-top: 12px;
+}
+
+.lofi-link a {
+    color: #000;
+}
+
+.lofi-info {
+    font-size: 11px;
+    color: #333;
+}
+
+.lofi-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid #000;
+    font-size: 11px;
+}
+
+/* Dashboard */
+.lofi-app {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: white;
+    border: 3px solid #000;
+}
+
+.lofi-header, .lofi-footer {
+    padding: 16px;
+    text-align: center;
+    border-bottom: 2px solid #000;
+}
+
+.lofi-footer {
+    border-bottom: none;
+    border-top: 2px solid #000;
+}
+
+.lofi-user {
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+.lofi-layout {
+    display: flex;
+    min-height: 500px;
+}
+
+.lofi-sidebar {
+    width: 200px;
+    border-right: 2px solid #000;
+    padding: 16px 0;
+}
+
+.lofi-menu {
+    padding: 10px 16px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    margin: 2px 0;
+}
+
+.lofi-menu:hover {
+    background: #e0e0e0;
+    border-left-color: #000;
+}
+
+.lofi-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.lofi-card {
+    border: 1px solid #000;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.lofi-grid {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.lofi-grid .lofi-card {
+    flex: 1;
+    min-width: 200px;
+}
+
+.lofi-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.lofi-table th, .lofi-table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+
+button {
+    background: #ccc;
+    border: 1px solid #000;
+    padding: 6px 12px;
+    font-family: monospace;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+button:hover {
+    background: #aaa;
+}
+
+a {
+    color: #000;
+    text-decoration: underline;
+}

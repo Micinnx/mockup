@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Akademik SMKS TI-PGRI 11 SERPONG</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="lofi-app">
+        <div class="lofi-header">
+            <h2>SMKS-TI PGRI 11 SERPONG</h2>
+            <p>SISTEM INFORMASI AKADEMIK</p>
+            <div class="lofi-user" id="userInfo">Loading... | <a href="#" id="logout">Logout</a></div>
+        </div>
+        
+        <div class="lofi-layout">
+            <div class="lofi-sidebar">
+                <div class="lofi-menu" data-tab="home">🏠 Home</div>
+                <div class="lofi-menu" data-tab="jadwal">📅 Jadwal</div>
+                <div class="lofi-menu" data-tab="nilai">📊 Nilai</div>
+                <div class="lofi-menu" data-tab="pelajaran">📚 Mata Pelajaran</div>
+                <div class="lofi-menu" data-tab="tagihan">💰 Tagihan</div>
+            </div>
+            <div class="lofi-content" id="dynamicContent">
+                <div class="lofi-card">Memuat...</div>
+            </div>
+        </div>
+        
+        <div class="lofi-footer">
+            © 2024 SMKS-TI PGRI 11 Serpong, All Rights Reserved.
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
