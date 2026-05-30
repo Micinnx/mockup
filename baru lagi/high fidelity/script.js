@@ -139,7 +139,7 @@ const components = {
               ${i === 0 ? `<td rowspan="${grouped[day].length}"><strong>${day}</strong></td>` : ''}
               <td>${s.start_time || '-'}-${s.end_time || '-'}</td>
               <td>${s.subject_name || s.Subject?.name || '-'}</td>
-              <td>${s.teacher_name || '-'}</td>
+              <td>${s.teacher?.name || '-'}</td>
               <td>${s.room || '-'}</td>
             </tr>`;
           });
