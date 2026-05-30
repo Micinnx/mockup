@@ -168,15 +168,15 @@ const components = {
       rows = '<tr><td colspan="6" style="text-align:center;color:#888;">Belum ada nilai</td></tr>';
     } else {
       results.forEach(r => {
-        const avg = r.final_score ?? '-';
+        const avg = r.rata_rata
         if (typeof avg === 'number') total += avg;
-        const grade = r.grade_letter || '-';
+        const grade = r.predikat;
         const badgeClass = grade === 'A' ? 'badge-success' : grade.startsWith('B') ? 'badge-primary' : 'badge-warning';
         rows += `<tr>
-          <td>${r.Subject?.name || r.subject_name || '-'}</td>
-          <td>${r.task_score ?? '-'}</td>
-          <td>${r.mid_score ?? '-'}</td>
-          <td>${r.final_exam_score ?? '-'}</td>
+          <td>${r.mata_pelajaran || '-'}</td>
+          <td>${r.tugas ?? '-'}</td>
+          <td>${r.uts ?? '-'}</td>
+          <td>${r.uas ?? '-'}</td>
           <td>${avg}</td>
           <td><span class="${badgeClass}">${grade}</span></td>
         </tr>`;
