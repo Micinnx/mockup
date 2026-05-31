@@ -117,7 +117,8 @@ const components = {
 
   jadwal: async (user) => {
     const res = await apiFetch('/api/schedules');
-    const schedules = res.success ? res.data : [];
+    const allSchedules = res.success ? res.data : [];
+const schedules = allSchedules.filter(s => s.Class?.name === user.class_name);
 
     const days = ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
     let rows = '';
