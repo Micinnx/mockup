@@ -67,7 +67,7 @@ const components = {
           <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
           <div class="stat-info">
             <h4>Jadwal Hari Ini</h4>
-            <div class="stat-value">${d.todaySchedule?.length ?? '-'}</div>
+            <div class="stat-value">${d.stats?.jadwal_hari_ini ?? '-'}</div>
             <div class="stat-label">Mata Pelajaran</div>
           </div>
         </div>
@@ -75,7 +75,7 @@ const components = {
           <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
           <div class="stat-info">
             <h4>Rata-rata Nilai</h4>
-            <div class="stat-value">${d.averageGrade ?? '-'}</div>
+            <div class="stat-value">${d.stats?.rata_rata_nilai ?? '-'}</div>
             <div class="stat-label">Nilai Akademik</div>
           </div>
         </div>
@@ -83,7 +83,7 @@ const components = {
           <div class="stat-icon"><i class="fas fa-user-check"></i></div>
           <div class="stat-info">
             <h4>Kehadiran</h4>
-            <div class="stat-value">${d.attendancePercentage != null ? d.attendancePercentage + '%' : '-'}</div>
+            <div class="stat-value">${d.stats?.kehadiran_persen != null ? d.stats.kehadiran_persen + '%' : '-'}</div>
             <div class="stat-label">Persentase Hadir</div>
           </div>
         </div>
