@@ -49,14 +49,14 @@ const components = {
   home: async (user) => {
     const res = await apiFetch('/api/dashboard');
     const d = res.success ? res.data : {};
-    const jadwalHtml = d.todaySchedule && d.todaySchedule.length > 0
-      ? d.todaySchedule.map(j => `
-          <tr>
-            <td>${j.start_time || '-'} - ${j.end_time || '-'}</td>
-            <td>${j.subject_name || j.Subject?.name || '-'}</td>
-            <td>${j.teacher_name || '-'}</td>
-            <td>${j.room || '-'}</td>
-          </tr>`).join('')
+    const jadwalHtml = d.jadwal_hari_ini && d.jadwal_hari_ini.length > 0
+  ? d.jadwal_hari_ini.map(j => `
+      <tr>
+        <td>${j.jam || '-'}</td>
+        <td>${j.mata_pelajaran || '-'}</td>
+        <td>${j.guru || '-'}</td>
+        <td>${j.ruang || '-'}</td>
+      </tr>`).join('')
       : '<tr><td colspan="4" style="text-align:center;color:#888;">Tidak ada jadwal hari ini</td></tr>';
 
     const today = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
