@@ -1,0 +1,576 @@
+/* HI-FI STYLE - Premium Design for SMK */
+:root {
+    --primary: #1e3c72;
+    --primary-dark: #0f2a4a;
+    --primary-light: #2a5298;
+    --secondary: #00b4d8;
+    --accent: #f4a261;
+    --success: #2ecc71;
+    --warning: #f39c12;
+    --danger: #e74c3c;
+    --dark: #2d3436;
+    --light: #f8f9fa;
+    --gray: #6c757d;
+    --border: #e9ecef;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f0f2f5;
+    color: var(--dark);
+}
+
+/* ========== LOGIN PAGE ========== */
+.hifi-login-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.hifi-login-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1100px;
+    width: 100%;
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.hifi-login-left {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    padding: 48px 40px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hifi-brand {
+    text-align: center;
+}
+
+.hifi-brand i {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.hifi-brand h1 {
+    font-size: 28px;
+    letter-spacing: 2px;
+}
+
+.hifi-brand h2 {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.hifi-brand p {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.hifi-features {
+    margin-top: 48px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.feature i {
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.hifi-login-right {
+    padding: 48px 40px;
+    background: white;
+}
+
+.hifi-login-card h3 {
+    font-size: 24px;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.hifi-login-card p {
+    color: var(--gray);
+    margin-bottom: 32px;
+}
+
+.hifi-input-group {
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.hifi-input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark);
+    font-size: 14px;
+}
+
+.hifi-input-group label i {
+    margin-right: 8px;
+    color: var(--primary);
+}
+
+.hifi-input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.hifi-input-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30,60,114,0.1);
+}
+
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    bottom: 14px;
+    color: var(--gray);
+    cursor: pointer;
+}
+
+.hifi-btn-login {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.hifi-btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.hifi-links {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.hifi-links a {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.hifi-demo-info {
+    margin-top: 32px;
+    padding: 12px;
+    background: #e8f4f8;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    text-align: center;
+    color: var(--primary);
+}
+
+/* ========== DASHBOARD ========== */
+.hifi-dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.hifi-sidebar {
+    width: 280px;
+    background: white;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    padding: 28px 24px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.sidebar-header i {
+    font-size: 40px;
+    color: var(--primary);
+}
+
+.sidebar-header h3 {
+    margin-top: 12px;
+    font-size: 18px;
+}
+
+.sidebar-header p {
+    font-size: 12px;
+    color: var(--gray);
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 24px 16px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--gray);
+    transition: all 0.3s;
+    margin-bottom: 4px;
+}
+
+.nav-item i {
+    width: 20px;
+    font-size: 18px;
+}
+
+.nav-item:hover {
+    background: #f0f4f8;
+    color: var(--primary);
+}
+
+.nav-item.active {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+}
+
+.sidebar-footer {
+    padding: 20px 16px;
+    border-top: 1px solid var(--border);
+}
+
+.user-info-mini {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    margin-bottom: 12px;
+}
+
+.user-info-mini i {
+    font-size: 32px;
+    color: var(--primary);
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 10px;
+    background: #fee2e2;
+    color: var(--danger);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background: #fecaca;
+}
+
+/* Main Content */
+.hifi-main {
+    flex: 1;
+    margin-left: 280px;
+}
+
+.hifi-header {
+    background: white;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-search {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--light);
+    padding: 8px 16px;
+    border-radius: 40px;
+    width: 300px;
+}
+
+.header-search i {
+    color: var(--gray);
+}
+
+.header-search input {
+    border: none;
+    background: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.notification {
+    position: relative;
+    cursor: pointer;
+}
+
+.notification i {
+    font-size: 20px;
+    color: var(--gray);
+}
+
+.notification .badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--danger);
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.user-role {
+    font-size: 11px;
+    color: var(--gray);
+}
+
+/* Content */
+.hifi-content {
+    padding: 32px;
+    min-height: calc(100vh - 73px);
+}
+
+.loading-spinner {
+    text-align: center;
+    padding: 60px;
+    color: var(--gray);
+}
+
+/* Cards */
+.card-premium {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-premium:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon i {
+    font-size: 28px;
+    color: white;
+}
+
+.stat-info h4 {
+    font-size: 13px;
+    color: var(--gray);
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--gray);
+}
+
+.table-premium {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-premium th,
+.table-premium td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.table-premium th {
+    background: var(--light);
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.badge-success {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.badge-warning {
+    background: #fed7aa;
+    color: #9a3412;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.badge-primary {
+    background: #dbeafe;
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.progress-bar {
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 8px;
+}
+
+.progress-fill {
+    background: var(--success);
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hifi-sidebar {
+        width: 80px;
+    }
+    .sidebar-header h3, .sidebar-header p, .nav-item span, .user-info-mini span, .logout-btn span {
+        display: none;
+    }
+    .hifi-main {
+        margin-left: 80px;
+    }
+    .hifi-login-grid {
+        grid-template-columns: 1fr;
+    }
+    .hifi-login-left {
+        display: none;
+    }
+}

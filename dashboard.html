@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Akademik SMKS-TI PGRI 11 SERPONG</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="hifi-dashboard">
+        <!-- Sidebar -->
+        <aside class="hifi-sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-school"></i>
+                <h3>SMKS-TI PGRI 11</h3>
+                <p>SERPONG</p>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item active" data-tab="home">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item" data-tab="jadwal">
+                    <i class="fas fa-calendar-week"></i>
+                    <span>Jadwal Pelajaran</span>
+                </div>
+                <div class="nav-item" data-tab="nilai">
+                    <i class="fas fa-star"></i>
+                    <span>Nilai & Raport</span>
+                </div>
+                <div class="nav-item" data-tab="pelajaran">
+                    <i class="fas fa-book-open"></i>
+                    <span>Mata Pelajaran</span>
+                </div>
+                <div class="nav-item" data-tab="tagihan">
+                    <i class="fas fa-receipt"></i>
+                    <span>Tagihan</span>
+                </div>
+                <div class="nav-item" data-tab="profil">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Profil Saya</span>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info-mini" id="sidebarUser">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Loading...</span>
+                </div>
+                <button id="logoutBtn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Keluar
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="hifi-main">
+            <header class="hifi-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Cari informasi...">
+                </div>
+                <div class="header-right">
+                    <div class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user-profile" id="userProfileHeader">
+                        <img src="https://ui-avatars.com/api/?background=1e3c72&color=fff&name=Nish="Avatar">
+                        <div class="user-info">
+                            <span class="user-name" id="userNameHeader">Nishntoso</span>
+                            <span class="user-role" id="userClassHeader">XII TKJ 1span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="hifi-content" id="dynamicContent">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-pulse"></i> Memuat data...
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js?v=2"></script>
+</body>
+</html>
