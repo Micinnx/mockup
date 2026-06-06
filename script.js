@@ -403,6 +403,74 @@ if (document.getElementById('loginBtn')) {
   });
 }
 
+// ── NOTIFICATION ──────────────────────────────────────────────
+async function loadNotifications() {
+  const res = await apiFetch('/api/notifications');
+  if (!res.success) return;
+
+  const { total, notifications } = res.data;
+
+  // Update badge
+  const badge = document.getElementById('notifBadge');
+  const count = document.getElementById('notifCount');
+  if (badge) badge.textContent = total > 9 ? '9+' : total;
+  if (count) count.textContent = `${total} notifikasi`;
+
+  // Render list
+  const list = document.getElementById('notifList');
+  if (!list) return;
+
+  if (notifications.length === 0) {
+    list.innerHTML = `
+      <div class="notif-empty">
+        <i class="fas fa-check-circle"></i>
+        Tidak ada notifikasi baru
+      </div>`;
+    return;
+  }
+
+  list.innerHTML = notifications.map(n => `
+    <div class="notif-item" data-tab="${n.tab}">
+      <div class="notif-item-icon" style="background:${n.color}">
+        <i class="fas ${n.icon}"></i>
+      </div>
+      <div class="notif-item-content">
+        <div class="notif-item-title">${n.title}</div>
+        <div class="notif-item-msg">${n.message}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Klik item notifikasi → navigasi ke tab
+  list.querySelectorAll('.notif-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const tab = item.getAttribute('data-tab');
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.querySelector(`.nav-item[data-tab="${tab}"]`)?.classList.add('active');
+      render(tab, getUser());
+      document.getElementById('notifDropdown')?.classList.remove('show');
+    });
+  });
+}
+
+function initNotifToggle() {
+  const bell = document.getElementById('notifBell');
+  const dropdown = document.getElementById('notifDropdown');
+  if (!bell || !dropdown) return;
+
+  bell.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('show');
+  });
+
+  // Klik di luar dropdown → tutup
+  document.addEventListener('click', (e) => {
+    if (!bell.contains(e.target)) {
+      dropdown.classList.remove('show');
+    }
+  });
+}
+
 // ── DASHBOARD PAGE ────────────────────────────────────────────
 if (window.location.pathname.includes('dashboard.html')) {
   if (!isLoggedIn()) {
@@ -410,6 +478,8 @@ if (window.location.pathname.includes('dashboard.html')) {
   } else {
     updateUI();
     render('home', getUser());
+    loadNotifications();
+    initNotifToggle();
 
     document.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('click', function () {
