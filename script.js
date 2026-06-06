@@ -361,6 +361,17 @@ function updateUI() {
   if (el('userNameHeader'))  el('userNameHeader').textContent  = user.name;
   if (el('userClassHeader')) el('userClassHeader').textContent = user.class_name || user.role;
   if (el('sidebarUser'))     el('sidebarUser').innerHTML = `<i class="fas fa-user-circle"></i><span>${user.name}</span>`;
+
+  // Klik avatar/nama di header → pindah ke tab Profil Saya
+  const profileHeader = el('userProfileHeader');
+  if (profileHeader) {
+    profileHeader.style.cursor = 'pointer';
+    profileHeader.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.querySelector('.nav-item[data-tab="profil"]')?.classList.add('active');
+      render('profil', getUser());
+    });
+  }
 }
 
 // ── LOGIN PAGE ────────────────────────────────────────────────
