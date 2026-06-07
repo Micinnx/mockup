@@ -327,6 +327,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
+    overflow: visible;
 }
 
 .header-search {
@@ -582,14 +583,14 @@ body {
 
 .notif-dropdown {
   display: none;
-  position: absolute;
-  top: 40px;
-  right: 0;
+  position: fixed;
+  top: 72px;
+  right: 32px;
   width: 360px;
   background: white;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
-  z-index: 999;
+  z-index: 9999;
   overflow: hidden;
 }
 
