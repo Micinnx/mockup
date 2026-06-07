@@ -62,27 +62,16 @@
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Cari informasi...">
                 </div>
-                <div class="notification" id="notifBell">
-  <i class="fas fa-bell"></i>
-  <span class="badge" id="notifBadge">0</span>
-  <div class="notif-dropdown" id="notifDropdown">
-    <div class="notif-header">
-      <h4><i class="fas fa-bell"></i> Notifikasi</h4>
-      <span id="notifCount">0 notifikasi</span>
-    </div>
-    <div class="notif-list" id="notifList">
-      <div class="notif-empty">
-        <i class="fas fa-bell-slash"></i>
-        Memuat notifikasi...
-      </div>
-    </div>
-  </div>
-</div>
+                <div class="header-right">
+                    <div class="notification" id="notifBell">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge" id="notifBadge">0</span>
+                    </div>
                     <div class="user-profile" id="userProfileHeader">
-                        <img src="https://ui-avatars.com/api/?background=1e3c72&color=fff&name=Nish="Avatar">
+                        <img src="https://ui-avatars.com/api/?background=1e3c72&color=fff&name=User" alt="Avatar">
                         <div class="user-info">
-                            <span class="user-name" id="userNameHeader">Nishntoso</span>
-                            <span class="user-role" id="userClassHeader">XII TKJ 1span>
+                            <span class="user-name" id="userNameHeader">Loading...</span>
+                            <span class="user-role" id="userClassHeader">Loading...</span>
                         </div>
                     </div>
                 </div>
@@ -95,6 +84,21 @@
             </div>
         </main>
     </div>
-    <script src="script.js?v=2"></script>
+
+    <!-- Notif Dropdown — di luar header supaya tidak mempengaruhi layout -->
+    <div class="notif-dropdown" id="notifDropdown">
+        <div class="notif-header">
+            <h4><i class="fas fa-bell"></i> Notifikasi</h4>
+            <span id="notifCount">0 notifikasi</span>
+        </div>
+        <div class="notif-list" id="notifList">
+            <div class="notif-empty">
+                <i class="fas fa-bell-slash"></i>
+                Memuat notifikasi...
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=3"></script>
 </body>
 </html>
