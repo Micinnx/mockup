@@ -471,6 +471,96 @@ function initNotifToggle() {
   });
 }
 
+// ── SEARCH ───────────────────────────────────────────────────
+function initSearch() {
+  const input = document.getElementById('searchInput');
+  const dropdown = document.getElementById('searchDropdown');
+  if (!input || !dropdown) return;
+
+  let timeout = null;
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim();
+    clearTimeout(timeout);
+
+    if (q.length < 2) {
+      dropdown.classList.remove('show');
+      return;
+    }
+
+    dropdown.classList.add('show');
+    dropdown.innerHTML = '<div class="search-loading"><i class="fas fa-spinner fa-spin"></i> Mencari...</div>';
+
+    timeout = setTimeout(async () => {
+      const res = await apiFetch(`/api/search?q=${encodeURIComponent(q)}`);
+      if (!res.success || res.data.length === 0) {
+        dropdown.innerHTML = '<div class="search-empty">Tidak ada hasil untuk "<strong>' + q + '</strong>"</div>';
+        return;
+      }
+
+      // Kelompokkan per type
+      const grouped = {};
+      res.data.forEach(item => {
+        if (!grouped[item.type]) grouped[item.type] = [];
+        grouped[item.type].push(item);
+      });
+
+      const typeLabel = {
+        pelajaran: 'Mata Pelajaran',
+        jadwal: 'Jadwal',
+        tagihan: 'Tagihan',
+        nilai: 'Nilai',
+        pengumuman: 'Pengumuman'
+      };
+
+      let html = '';
+      Object.keys(grouped).forEach(type => {
+        html += `<div class="search-category">${typeLabel[type] || type}</div>`;
+        grouped[type].forEach(item => {
+          html += `
+            <div class="search-item" data-tab="${item.tab}">
+              <div class="search-item-icon" style="background:${item.color}">
+                <i class="fas ${item.icon}"></i>
+              </div>
+              <div class="search-item-content">
+                <div class="search-item-title">${item.title}</div>
+                <div class="search-item-subtitle">${item.subtitle}</div>
+              </div>
+            </div>`;
+        });
+      });
+
+      dropdown.innerHTML = html;
+
+      dropdown.querySelectorAll('.search-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const tab = item.getAttribute('data-tab');
+          document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+          document.querySelector(`.nav-item[data-tab="${tab}"]`)?.classList.add('active');
+          render(tab, getUser());
+          dropdown.classList.remove('show');
+          input.value = '';
+        });
+      });
+    }, 400);
+  });
+
+  // Tutup dropdown saat klik di luar
+  document.addEventListener('click', (e) => {
+    if (!input.closest('.header-search').contains(e.target)) {
+      dropdown.classList.remove('show');
+    }
+  });
+
+  // Tutup saat tekan Escape
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      dropdown.classList.remove('show');
+      input.value = '';
+    }
+  });
+}
+
 // ── DASHBOARD PAGE ────────────────────────────────────────────
 if (window.location.pathname.includes('dashboard.html')) {
   if (!isLoggedIn()) {
@@ -480,6 +570,11 @@ if (window.location.pathname.includes('dashboard.html')) {
     render('home', getUser());
     loadNotifications();
     initNotifToggle();
+    updateUI();
+    render('home', getUser());
+    loadNotifications();
+    initNotifToggle();
+    initSearch(); // ← tambahkan ini
 
     document.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('click', function () {
