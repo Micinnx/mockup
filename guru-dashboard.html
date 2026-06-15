@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Guru — SMKS-TI PGRI 11 Serpong</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── Guru-specific overrides ── */
+.absen-group { display: flex; gap: 4px; }
+.ab {
+  padding: 4px 10px; border-radius: 20px; font-size: 11px;
+  font-weight: 600; cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--light); color: var(--gray);
+  transition: all 0.2s;
+}
+.ab.hadir  { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
+.ab.sakit  { background: #fed7aa; color: #9a3412; border-color: #fdba74; }
+.ab.izin   { background: #dbeafe; color: #1e3a8a; border-color: #93c5fd; }
+.ab.alpha  { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+
+.nilai-input {
+  width: 64px; padding: 6px 8px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-size: 13px; text-align: center;
+  outline: none; transition: border 0.2s;
+}
+.nilai-input:focus { border-color: var(--primary); }
+
+.filter-form {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  margin-bottom: 16px;
+}
+.filter-form select, .filter-form input {
+  padding: 9px 12px; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 13px;
+  outline: none; width: 100%;
+  font-family: 'Inter', sans-serif;
+}
+.filter-form select:focus, .filter-form input:focus { border-color: var(--primary); }
+
+.form-label {
+  display: block; font-size: 12px; font-weight: 500;
+  color: var(--gray); margin-bottom: 5px;
+}
+
+.summary-badges { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+
+.alert-bar {
+  padding: 12px 16px; border-radius: var(--radius-sm);
+  font-size: 13px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+  animation: fadeIn 0.3s ease;
+}
+.alert-bar.success { background: #d1fae5; color: #065f46; }
+.alert-bar.danger  { background: #fee2e2; color: #991b1b; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+.day-separator td {
+  background: #f0f4f8; font-size: 11px; font-weight: 700;
+  color: var(--primary); text-transform: uppercase;
+  letter-spacing: 0.8px; padding: 8px 12px;
+}
+
+.mini-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; flex-shrink: 0;
+}
+.td-name { display: flex; align-items: center; gap: 10px; }
+
+.btn-absen {
+  padding: 6px 14px; border-radius: var(--radius-sm);
+  background: #d1fae5; color: #065f46;
+  border: 1px solid #6ee7b7; font-size: 12px;
+  font-weight: 500; cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-absen:hover { background: #10b981; color: white; }
+
+.btn-save-nilai {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white; border: none; padding: 10px 24px;
+  border-radius: var(--radius-sm); font-size: 14px;
+  font-weight: 500; cursor: pointer;
+  transition: all 0.3s; display: inline-flex;
+  align-items: center; gap: 8px;
+}
+.btn-save-nilai:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.btn-save-nilai:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.empty-state {
+  text-align: center; padding: 48px 20px;
+  color: var(--gray);
+}
+.empty-state i { font-size: 40px; margin-bottom: 12px; display: block; opacity: 0.3; }
+.empty-state p { font-size: 14px; }
+
+.avg-col { font-weight: 600; color: var(--primary); }
+</style>
+</head>
+<body>
+<div class="hifi-dashboard">
+
+  <!-- ── Sidebar ── -->
+  <aside class="hifi-sidebar">
+    <div class="sidebar-header">
+      <i class="fas fa-school"></i>
+      <h3>SMKS-TI PGRI 11</h3>
+      <p>SERPONG</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-tab="dashboard">
+        <i class="fas fa-th-large"></i><span>Dashboard</span>
+      </div>
+      <div class="nav-item" data-tab="jadwal">
+        <i class="fas fa-calendar-check"></i><span>Jadwal Mengajar</span>
+      </div>
+      <div class="nav-item" data-tab="nilai">
+        <i class="fas fa-pen-to-square"></i><span>Input Nilai</span>
+      </div>
+      <div class="nav-item" data-tab="absensi">
+        <i class="fas fa-clipboard-check"></i><span>Absensi Siswa</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info-mini">
+        <i class="fas fa-user-circle"></i>
+        <div>
+          <div style="font-weight:600;font-size:13px;" id="sidebarName">Guru</div>
+          <div style="font-size:11px;color:var(--gray);">Guru Pengajar</div>
+        </div>
+      </div>
+      <button class="logout-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i><span> Keluar</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <div class="hifi-main">
+
+    <!-- Header -->
+    <header class="hifi-header">
+      <div>
+        <h2 style="font-size:16px;font-weight:600;color:var(--primary)" id="pageTitle">Dashboard Guru</h2>
+        <p style="font-size:12px;color:var(--gray)" id="pageSubtitle">Selamat datang</p>
+      </div>
+      <div class="header-right">
+        <div style="font-size:13px;color:var(--gray);background:var(--light);padding:7px 14px;border-radius:20px;" id="dateBadge"></div>
+        <div class="user-profile" id="userProfileHeader">
+          <img id="avatarImg" src="" alt="Avatar">
+          <div class="user-info">
+            <span class="user-name" id="userNameHeader">Guru</span>
+            <span class="user-role">Guru Pengajar</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="hifi-content">
+      <div id="dynamicContent">
+        <div class="loading-spinner">
+          <i class="fas fa-spinner fa-pulse" style="font-size:24px;color:var(--primary);"></i>
+          <p style="margin-top:12px;">Memuat data...</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const BASE_URL = 'https://smksti-pgri-11-serpong-production.up.railway.app';
+
+function getToken() { return localStorage.getItem('token'); }
+function getUser()  { const u = localStorage.getItem('user'); return u ? JSON.parse(u) : null; }
+function isLoggedIn() { return !!getToken() && !!getUser(); }
+
+function logout() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  window.location.href = 'index.html';
+}
+
+async function apiFetch(endpoint, options = {}) {
+  try {
+    const res = await fetch(`${BASE_URL}${endpoint}`, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getToken()}`,
+        ...(options.headers || {})
+      }
+    });
+    return await res.json();
+  } catch (err) {
+    console.error('API Error:', err);
+    return { success: false, message: 'Koneksi gagal' };
+  }
+}
+
+function initials(name) {
+  if (!name) return 'GR';
+  return name.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
+}
+
+function formatDate() {
+  return new Date().toLocaleDateString('id-ID', {
+    weekday:'long', year:'numeric', month:'long', day:'numeric'
+  });
+}
+
+function getDayToday() {
+  return ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'][new Date().getDay()];
+}
+
+function showAlert(msg, type = 'success') {
+  const old = document.querySelector('.alert-bar');
+  if (old) old.remove();
+  const el = document.createElement('div');
+  el.className = `alert-bar ${type}`;
+  el.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i> ${msg}`;
+  document.getElementById('dynamicContent').prepend(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+// ════════════════════════════════
+// TABS
+// ════════════════════════════════
+
+async function tabDashboard(user) {
+  const res = await apiFetch('/api/schedules/my-schedule');
+  const schedules = res.success ? res.data : [];
+  const today = getDayToday();
+  const todayList = schedules.filter(s => s.day === today);
+  const uniqueClasses = [...new Set(schedules.map(s => s.class_id))].length;
+
+  const rows = todayList.length > 0
+    ? todayList.map(s => `
+        <tr>
+          <td>${s.start_time||'-'} – ${s.end_time||'-'}</td>
+          <td>${s.Subject?.name||'-'}</td>
+          <td>${s.teacher?.name||user.name||'-'}</td>
+          <td><span class="badge-primary">${s.Class?.name||'-'}</span></td>
+          <td>${s.room||'-'}</td>
+          <td>
+            <button class="btn-absen start-absen"
+              data-class="${s.Class?.name||''}"
+              data-schedule="${s.id}">
+              <i class="fas fa-clipboard-check"></i> Absensi
+            </button>
+          </td>
+        </tr>`).join('')
+    : `<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--gray);">
+         <i class="fas fa-calendar-times" style="margin-right:6px;"></i>Tidak ada jadwal hari ini
+       </td></tr>`;
+
+  return `
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
+        <div class="stat-info">
+          <h4>Jadwal Hari Ini</h4>
+          <div class="stat-value">${todayList.length}</div>
+          <div class="stat-label">Mata Pelajaran</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
+        <div class="stat-info">
+          <h4>Total Jadwal</h4>
+          <div class="stat-value">${schedules.length}</div>
+          <div class="stat-label">Per Minggu</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        <div class="stat-info">
+          <h4>Kelas Diajar</h4>
+          <div class="stat-value">${uniqueClasses}</div>
+          <div class="stat-label">Kelas Aktif</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-premium">
+      <h3 style="margin-bottom:16px;">
+        <i class="fas fa-calendar-day" style="color:var(--primary);margin-right:8px;"></i>
+        Jadwal Hari Ini — ${today}
+      </h3>
+      <table class="table-premium">
+        <thead><tr>
+          <th>Jam</th><th>Mata Pelajaran</th><th>Guru</th><th>Kelas</th><th>Ruang</th><th>Aksi</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+async function tabJadwal(user) {
+  const res = await apiFetch('/api/schedules/my-schedule');
+  const schedules = res.success ? res.data : [];
+  const days = ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const grouped = {};
+  schedules.forEach(s => {
+    if (!grouped[s.day]) grouped[s.day] = [];
+    grouped[s.day].push(s);
+  });
+
+  let rows = '';
+  if (schedules.length === 0) {
+    rows = `<tr><td colspan="5"><div class="empty-state">
+      <i class="fas fa-calendar-times"></i><p>Belum ada jadwal mengajar</p>
+    </div></td></tr>`;
+  } else {
+    days.forEach(day => {
+      if (!grouped[day]) return;
+      rows += `<tr class="day-separator"><td colspan="5">${day}</td></tr>`;
+      grouped[day].forEach(s => {
+        rows += `<tr>
+          <td style="padding-left:24px;">${s.start_time||'-'} – ${s.end_time||'-'}</td>
+          <td>${s.Subject?.name||'-'}</td>
+          <td><span class="badge-primary">${s.Class?.name||'-'}</span></td>
+          <td>${s.room||'-'}</td>
+          <td>
+            <button class="btn-absen start-absen"
+              data-class="${s.Class?.name||''}"
+              data-schedule="${s.id}">
+              <i class="fas fa-clipboard-check"></i> Mulai Absensi
+            </button>
+          </td>
+        </tr>`;
+      });
+    });
+  }
+
+  return `
+    <div class="card-premium">
+      <h3 style="margin-bottom:16px;">
+        <i class="fas fa-calendar-week" style="color:var(--primary);margin-right:8px;"></i>
+        Jadwal Mengajar
+      </h3>
+      <table class="table-premium">
+        <thead><tr><th>Jam</th><th>Mata Pelajaran</th><th>Kelas</th><th>Ruang</th><th>Aksi</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+async function tabNilai(user) {
+  const schedRes = await apiFetch('/api/schedules/my-schedule');
+  const schedules = schedRes.success ? schedRes.data : [];
+  const classMap = new Map(schedules.map(s => [s.Class?.name, s.Class]));
+  const subjectMap = new Map(schedules.map(s => [s.subject_id, s.Subject]));
+  const classes = [...classMap.values()].filter(Boolean);
+  const subjects = [...subjectMap.values()].filter(Boolean);
+
+  const classOpts = classes.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+  const subjectOpts = subjects.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+
+  return `
+    <div class="card-premium">
+      <h3 style="margin-bottom:16px;">
+        <i class="fas fa-filter" style="color:var(--primary);margin-right:8px;"></i>
+        Filter Data Nilai
+      </h3>
+      <div class="filter-form">
+        <div>
+          <label class="form-label">Kelas</label>
+          <select id="filterKelas">${classOpts||'<option>Tidak ada kelas</option>'}</select>
+        </div>
+        <div>
+          <label class="form-label">Mata Pelajaran</label>
+          <select id="filterMapel">${subjectOpts||'<option>Tidak ada mapel</option>'}</select>
+        </div>
+        <div>
+          <label class="form-label">Semester</label>
+          <select id="filterSemester">
+            <option value="1">Ganjil</option>
+            <option value="2" selected>Genap</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">Tahun Ajaran</label>
+          <input type="text" id="filterTahun" value="2025/2026">
+        </div>
+      </div>
+      <button class="btn-primary" id="loadNilaiBtn">
+        <i class="fas fa-search"></i> Tampilkan Nilai
+      </button>
+    </div>
+    <div id="nilaiWrap"></div>`;
+}
+
+async function tabAbsensi(user) {
+  const schedRes = await apiFetch('/api/schedules/my-schedule');
+  const schedules = schedRes.success ? schedRes.data : [];
+  const classMap = new Map(schedules.map(s => [s.Class?.name, s.Class]));
+  const classes = [...classMap.values()].filter(Boolean);
+  const classOpts = classes.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+  const today = new Date().toISOString().split('T')[0];
+
+  return `
+    <div class="card-premium">
+      <h3 style="margin-bottom:16px;">
+        <i class="fas fa-filter" style="color:var(--primary);margin-right:8px;"></i>
+        Filter Absensi
+      </h3>
+      <div class="filter-form" style="grid-template-columns:repeat(3,1fr);">
+        <div>
+          <label class="form-label">Kelas</label>
+          <select id="filterAbsenKelas">${classOpts||'<option>Tidak ada kelas</option>'}</select>
+        </div>
+        <div>
+          <label class="form-label">Tanggal</label>
+          <input type="date" id="filterAbsenTgl" value="${today}">
+        </div>
+        <div style="display:flex;align-items:flex-end;">
+          <button class="btn-primary" id="loadAbsenBtn" style="width:100%;">
+            <i class="fas fa-search"></i> Tampilkan
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="absenWrap"></div>`;
+}
+
+// ════════════════════════════════
+// LOAD NILAI
+// ════════════════════════════════
+async function loadNilai() {
+  const kelas   = document.getElementById('filterKelas')?.value;
+  const mapel   = document.getElementById('filterMapel')?.value;
+  const sem     = document.getElementById('filterSemester')?.value;
+  const tahun   = document.getElementById('filterTahun')?.value;
+  const wrap    = document.getElementById('nilaiWrap');
+  if (!wrap) return;
+
+  wrap.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-pulse" style="color:var(--primary);font-size:20px;"></i><p style="margin-top:8px;">Memuat nilai...</p></div>`;
+
+  const res = await apiFetch(
+    `/api/assessments/class/${encodeURIComponent(kelas)}?subject_id=${mapel}&semester=${sem}&academic_year=${encodeURIComponent(tahun)}`
+  );
+
+  if (!res.success) {
+    wrap.innerHTML = `<div class="card-premium" style="color:#991b1b;background:#fee2e2;">
+      <i class="fas fa-exclamation-circle"></i> ${res.message}
+    </div>`;
+    return;
+  }
+
+  const data = res.data;
+  const studentMap = {};
+  data.forEach(a => {
+    const sid = a.User?.id || a.student_id;
+    if (!studentMap[sid]) studentMap[sid] = {
+      assessmentId: a.id,
+      name: a.User?.name || '-',
+      nis: a.User?.nis || '-',
+      task: a.task_score ?? 0,
+      quiz: a.quiz_score ?? 0,
+      attitude: a.attitude_score ?? 0
+    };
+  });
+
+  const students = Object.entries(studentMap);
+  const rows = students.length > 0
+    ? students.map(([sid, s]) => {
+        const avg = ((s.task + s.quiz + s.attitude) / 3).toFixed(1);
+        return `<tr data-sid="${sid}" data-aid="${s.assessmentId||''}">
+          <td><div class="td-name">
+            <div class="mini-avatar">${initials(s.name)}</div>${s.name}
+          </div></td>
+          <td style="font-size:12px;color:var(--gray);">${s.nis}</td>
+          <td><input class="nilai-input n-task" type="number" min="0" max="100" value="${s.task}"></td>
+          <td><input class="nilai-input n-quiz" type="number" min="0" max="100" value="${s.quiz}"></td>
+          <td><input class="nilai-input n-att"  type="number" min="0" max="100" value="${s.attitude}"></td>
+          <td class="avg-col" id="avg-${sid}">${avg}</td>
+        </tr>`;
+      }).join('')
+    : `<tr><td colspan="6"><div class="empty-state">
+        <i class="fas fa-inbox"></i><p>Belum ada nilai. Input nilai baru untuk kelas ini.</p>
+      </div></td></tr>`;
+
+  wrap.innerHTML = `
+    <div class="card-premium">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3><i class="fas fa-star" style="color:var(--primary);margin-right:8px;"></i>Daftar Nilai — ${kelas}</h3>
+        <button class="btn-save-nilai" id="saveNilaiBtn">
+          <i class="fas fa-save"></i> Simpan Semua Nilai
+        </button>
+      </div>
+      <table class="table-premium">
+        <thead><tr>
+          <th>Nama Siswa</th><th>NIS</th><th>Tugas</th><th>UTS</th><th>Sikap</th><th>Rata-rata</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+
+  // Live avg
+  wrap.querySelectorAll('tr[data-sid]').forEach(row => {
+    row.querySelectorAll('.nilai-input').forEach(inp => {
+      inp.addEventListener('input', () => {
+        const vals = [...row.querySelectorAll('.nilai-input')].map(i => parseFloat(i.value)||0);
+        const avg = (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
+        document.getElementById(`avg-${row.dataset.sid}`).textContent = avg;
+      });
+    });
+  });
+
+  document.getElementById('saveNilaiBtn')?.addEventListener('click', async () => {
+    const btn = document.getElementById('saveNilaiBtn');
+    btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+    let ok = 0, fail = 0;
+    const rows = wrap.querySelectorAll('tr[data-sid]');
+    for (const row of rows) {
+      const sid = parseInt(row.dataset.sid);
+      const aid = row.dataset.aid;
+      const task_score     = parseFloat(row.querySelector('.n-task')?.value)||0;
+      const quiz_score     = parseFloat(row.querySelector('.n-quiz')?.value)||0;
+      const attitude_score = parseFloat(row.querySelector('.n-att')?.value)||0;
+      let r;
+      if (aid) {
+        r = await apiFetch(`/api/assessments/${aid}`, { method:'PUT', body: JSON.stringify({task_score,quiz_score,attitude_score}) });
+      } else {
+        r = await apiFetch('/api/assessments', { method:'POST', body: JSON.stringify({
+          student_id: sid,
+          subject_id: parseInt(document.getElementById('filterMapel')?.value),
+          semester: parseInt(document.getElementById('filterSemester')?.value),
+          academic_year: document.getElementById('filterTahun')?.value,
+          task_score, quiz_score, attitude_score
+        })});
+      }
+      if (r.success) ok++; else fail++;
+    }
+    btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> Simpan Semua Nilai';
+    showAlert(`${ok} nilai berhasil disimpan${fail>0?`, ${fail} gagal`:''}`, fail>0?'danger':'success');
+  });
+}
+
+// ════════════════════════════════
+// LOAD ABSENSI
+// ════════════════════════════════
+async function loadAbsensi() {
+  const kelas  = document.getElementById('filterAbsenKelas')?.value;
+  const tgl    = document.getElementById('filterAbsenTgl')?.value;
+  const wrap   = document.getElementById('absenWrap');
+  if (!wrap) return;
+
+  wrap.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-pulse" style="color:var(--primary);font-size:20px;"></i><p style="margin-top:8px;">Memuat absensi...</p></div>`;
+
+  const res = await apiFetch(`/api/attendances/class/${encodeURIComponent(kelas)}?date=${tgl}`);
+  if (!res.success) {
+    wrap.innerHTML = `<div class="card-premium" style="color:#991b1b;background:#fee2e2;">
+      <i class="fas fa-exclamation-circle"></i> ${res.message}
+    </div>`; return;
+  }
+
+  const data = res.data;
+  const statusMap = {};
+  data.forEach(a => { statusMap[a.student_id] = { id: a.id, status: a.status }; });
+
+  const counts = { hadir:0, sakit:0, izin:0, alpha:0 };
+  data.forEach(a => { if (a.status && counts[a.status]!==undefined) counts[a.status]++; });
+
+  const rows = data.map(a => {
+    const s = a.student || { id: a.student_id, name:'-', nis:'-' };
+    const cur = statusMap[s.id]?.status || null;
+    return `<tr>
+      <td><div class="td-name">
+        <div class="mini-avatar">${initials(s.name)}</div>${s.name}
+      </div></td>
+      <td style="font-size:12px;color:var(--gray);">${s.nis}</td>
+      <td>
+        <div class="absen-group" data-sid="${s.id}" data-aid="${statusMap[s.id]?.id||''}">
+          ${['hadir','sakit','izin','alpha'].map(st =>
+            `<button class="ab ${cur===st?st:''}" data-status="${st}">${st.charAt(0).toUpperCase()+st.slice(1)}</button>`
+          ).join('')}
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="card-premium">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3><i class="fas fa-clipboard-list" style="color:var(--primary);margin-right:8px;"></i>
+          Absensi — ${kelas} | ${tgl}
+        </h3>
+        <button class="btn-save-nilai" id="saveAbsenBtn">
+          <i class="fas fa-save"></i> Simpan Absensi
+        </button>
+      </div>
+      <div class="summary-badges">
+        <span class="badge-success">Hadir: <b id="cnt-hadir">${counts.hadir}</b></span>
+        <span class="badge-warning">Sakit: <b id="cnt-sakit">${counts.sakit}</b></span>
+        <span class="badge-primary">Izin: <b id="cnt-izin">${counts.izin}</b></span>
+        <span style="background:#fee2e2;color:#991b1b;padding:4px 12px;border-radius:20px;font-size:12px;">
+          Alpha: <b id="cnt-alpha">${counts.alpha}</b>
+        </span>
+      </div>
+      <table class="table-premium">
+        <thead><tr><th>Nama Siswa</th><th>NIS</th><th>Status</th></tr></thead>
+        <tbody>${rows||`<tr><td colspan="3"><div class="empty-state">
+          <i class="fas fa-users"></i><p>Tidak ada siswa</p>
+        </div></td></tr>`}</tbody>
+      </table>
+    </div>`;
+
+  // Toggle
+  function recount() {
+    const c = { hadir:0,sakit:0,izin:0,alpha:0 };
+    wrap.querySelectorAll('.absen-group').forEach(g => {
+      const a = g.querySelector('.ab.hadir,.ab.sakit,.ab.izin,.ab.alpha');
+      if (a) { const st = a.dataset.status; if(c[st]!==undefined) c[st]++; }
+    });
+    ['hadir','sakit','izin','alpha'].forEach(k => {
+      const el = document.getElementById(`cnt-${k}`);
+      if (el) el.textContent = c[k];
+    });
+  }
+
+  wrap.querySelectorAll('.absen-group').forEach(group => {
+    group.querySelectorAll('.ab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        group.querySelectorAll('.ab').forEach(b => b.className = 'ab');
+        btn.className = `ab ${btn.dataset.status}`;
+        recount();
+      });
+    });
+  });
+
+  // Save
+  document.getElementById('saveAbsenBtn')?.addEventListener('click', async () => {
+    const btn = document.getElementById('saveAbsenBtn');
+    btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+    // Get schedule_id untuk kelas ini
+    const schedRes = await apiFetch('/api/schedules/my-schedule');
+    const sched = (schedRes.success ? schedRes.data : []).find(s => s.Class?.name === kelas);
+
+    let ok = 0, skip = 0, fail = 0;
+    for (const group of wrap.querySelectorAll('.absen-group')) {
+      const sid = parseInt(group.dataset.sid);
+      const aid = group.dataset.aid;
+      const active = group.querySelector('.ab.hadir,.ab.sakit,.ab.izin,.ab.alpha');
+      if (!active) { skip++; continue; }
+      const status = active.dataset.status;
+      let r;
+      if (aid) {
+        r = await apiFetch(`/api/attendances/${aid}`, { method:'PUT', body: JSON.stringify({status}) });
+      } else {
+        r = await apiFetch('/api/attendances', { method:'POST', body: JSON.stringify({
+          student_id: sid, schedule_id: sched?.id||null, date: tgl, status
+        })});
+      }
+      if (r.success) ok++; else fail++;
+    }
+
+    btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> Simpan Absensi';
+    showAlert(
+      `${ok} absensi disimpan${skip>0?`, ${skip} dilewati`:''}${fail>0?`, ${fail} gagal`:''}`,
+      fail>0?'danger':'success'
+    );
+  });
+}
+
+// ════════════════════════════════
+// RENDER ENGINE
+// ════════════════════════════════
+const tabTitles = {
+  dashboard: ['Dashboard Guru', 'Ringkasan aktivitas mengajar'],
+  jadwal:    ['Jadwal Mengajar', 'Daftar jadwal per minggu'],
+  nilai:     ['Input Nilai Siswa', 'Kelola nilai per kelas dan mata pelajaran'],
+  absensi:   ['Absensi Siswa', 'Rekap dan input kehadiran siswa']
+};
+
+const tabFns = { dashboard: tabDashboard, jadwal: tabJadwal, nilai: tabNilai, absensi: tabAbsensi };
+
+let currentTab = 'dashboard';
+
+async function render(tab) {
+  const user = getUser();
+  const container = document.getElementById('dynamicContent');
+  const [title, sub] = tabTitles[tab] || ['Dashboard',''];
+  document.getElementById('pageTitle').textContent = title;
+  document.getElementById('pageSubtitle').textContent = sub;
+
+  container.innerHTML = `<div class="loading-spinner">
+    <i class="fas fa-spinner fa-pulse" style="color:var(--primary);font-size:24px;"></i>
+    <p style="margin-top:12px;">Memuat data...</p>
+  </div>`;
+
+  try {
+    container.innerHTML = await tabFns[tab](user);
+    attachEvents(tab, user);
+  } catch(err) {
+    container.innerHTML = `<div class="card-premium" style="color:#991b1b;background:#fee2e2;">
+      <i class="fas fa-exclamation-circle"></i> Gagal memuat data. Coba refresh halaman.
+    </div>`;
+    console.error(err);
+  }
+
+  currentTab = tab;
+  document.querySelectorAll('.nav-item').forEach(n =>
+    n.classList.toggle('active', n.dataset.tab === tab)
+  );
+}
+
+function attachEvents(tab, user) {
+  // Tombol absensi dari dashboard/jadwal
+  document.querySelectorAll('.start-absen').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const className = btn.dataset.class;
+      render('absensi').then(() => {
+        const sel = document.getElementById('filterAbsenKelas');
+        if (sel) {
+          [...sel.options].forEach((o,i) => { if(o.value===className) sel.selectedIndex=i; });
+        }
+        document.getElementById('loadAbsenBtn')?.click();
+      });
+    });
+  });
+
+  if (tab === 'nilai') {
+    document.getElementById('loadNilaiBtn')?.addEventListener('click', loadNilai);
+  }
+  if (tab === 'absensi') {
+    document.getElementById('loadAbsenBtn')?.addEventListener('click', loadAbsensi);
+  }
+}
+
+// ════════════════════════════════
+// INIT
+// ════════════════════════════════
+(function init() {
+  if (!isLoggedIn()) { window.location.href = 'index.html'; return; }
+
+  const user = getUser();
+  if (user.role !== 'teacher') {
+    window.location.href = user.role === 'admin' ? 'admin-dashboard.html' : 'dashboard.html';
+    return;
+  }
+
+  // Update UI
+  document.getElementById('sidebarName').textContent = user.name || 'Guru';
+  document.getElementById('userNameHeader').textContent = user.name || 'Guru';
+  document.getElementById('dateBadge').textContent = formatDate();
+  document.getElementById('avatarImg').src =
+    `https://ui-avatars.com/api/?background=1e3c72&color=fff&name=${encodeURIComponent(user.name||'G')}`;
+
+  // Nav
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => render(item.dataset.tab));
+  });
+
+  document.getElementById('logoutBtn')?.addEventListener('click', logout);
+
+  render('dashboard');
+})();
+</script>
+</body>
+</html>
