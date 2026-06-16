@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Admin — SMKS-TI PGRI 11 Serpong</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* Admin-specific additions */
+.action-btns { display: flex; gap: 6px; }
+.btn-edit {
+  padding: 5px 12px; border-radius: var(--radius-sm);
+  background: #dbeafe; color: #1e40af;
+  border: 1px solid #93c5fd; font-size: 11px;
+  font-weight: 500; cursor: pointer; transition: all 0.2s;
+}
+.btn-edit:hover { background: #1e40af; color: white; }
+.btn-delete {
+  padding: 5px 12px; border-radius: var(--radius-sm);
+  background: #fee2e2; color: #991b1b;
+  border: 1px solid #fca5a5; font-size: 11px;
+  font-weight: 500; cursor: pointer; transition: all 0.2s;
+}
+.btn-delete:hover { background: #991b1b; color: white; }
+.btn-add {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white; border: none; padding: 10px 20px;
+  border-radius: var(--radius-sm); font-size: 13px;
+  font-weight: 500; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: all 0.3s;
+}
+.btn-add:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+
+.search-filter {
+  display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+  align-items: center;
+}
+.search-filter input, .search-filter select {
+  padding: 8px 12px; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 13px;
+  outline: none; font-family: 'Inter', sans-serif;
+  background: white;
+}
+.search-filter input:focus, .search-filter select:focus {
+  border-color: var(--primary);
+}
+.search-filter input { width: 240px; }
+
+/* Modal */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5); z-index: 1000;
+  align-items: center; justify-content: center;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: white; border-radius: var(--radius-md);
+  padding: 28px; width: 520px; max-width: 95vw;
+  box-shadow: var(--shadow-lg); max-height: 90vh; overflow-y: auto;
+}
+.modal-title {
+  font-size: 16px; font-weight: 600; color: var(--primary);
+  margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label {
+  font-size: 11px; font-weight: 600; color: var(--gray);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.form-group input, .form-group select {
+  padding: 9px 12px; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 13px;
+  outline: none; font-family: 'Inter', sans-serif;
+}
+.form-group input:focus, .form-group select:focus {
+  border-color: var(--primary);
+}
+.modal-actions {
+  display: flex; gap: 10px; justify-content: flex-end;
+  margin-top: 20px;
+}
+.btn-cancel {
+  padding: 9px 20px; border-radius: var(--radius-sm);
+  background: var(--light); color: var(--gray);
+  border: 1px solid var(--border); font-size: 13px;
+  cursor: pointer; font-weight: 500;
+}
+.btn-submit {
+  padding: 9px 20px; border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white; border: none; font-size: 13px;
+  cursor: pointer; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+
+.alert-bar {
+  padding: 12px 16px; border-radius: var(--radius-sm);
+  font-size: 13px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+  animation: fadeIn 0.3s ease;
+}
+.alert-bar.success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+.alert-bar.danger  { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+.mini-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white; display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; flex-shrink: 0;
+}
+.td-name { display: flex; align-items: center; gap: 10px; }
+
+.empty-state {
+  text-align: center; padding: 48px 20px; color: var(--gray);
+}
+.empty-state i { font-size: 40px; margin-bottom: 12px; display: block; opacity: 0.3; }
+
+.pagination {
+  display: flex; align-items: center; justify-content: between;
+  gap: 8px; margin-top: 16px; padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.page-info { font-size: 12px; color: var(--gray); flex: 1; }
+.page-btn {
+  padding: 5px 10px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: white;
+  font-size: 12px; cursor: pointer; color: var(--dark);
+}
+.page-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+.page-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+.page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+</style>
+</head>
+<body>
+<div class="hifi-dashboard">
+
+  <!-- ── Sidebar ── -->
+  <aside class="hifi-sidebar">
+    <div class="sidebar-header">
+      <i class="fas fa-school"></i>
+      <h3>SMKS-TI PGRI 11</h3>
+      <p>SERPONG</p>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-tab="dashboard">
+        <i class="fas fa-th-large"></i><span>Dashboard</span>
+      </div>
+      <div class="nav-item" data-tab="siswa">
+        <i class="fas fa-user-graduate"></i><span>Data Siswa</span>
+      </div>
+      <div class="nav-item" data-tab="guru">
+        <i class="fas fa-chalkboard-teacher"></i><span>Data Guru</span>
+      </div>
+      <div class="nav-item" data-tab="jadwal">
+        <i class="fas fa-calendar-alt"></i><span>Jadwal Pelajaran</span>
+      </div>
+      <div class="nav-item" data-tab="tagihan">
+        <i class="fas fa-receipt"></i><span>Tagihan</span>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info-mini">
+        <i class="fas fa-user-shield"></i>
+        <div>
+          <div style="font-weight:600;font-size:13px;" id="sidebarName">Admin</div>
+          <div style="font-size:11px;color:var(--gray);">Administrator</div>
+        </div>
+      </div>
+      <button class="logout-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i><span> Keluar</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <div class="hifi-main">
+    <header class="hifi-header">
+      <div>
+        <h2 style="font-size:16px;font-weight:600;color:var(--primary)" id="pageTitle">Dashboard Admin</h2>
+        <p style="font-size:12px;color:var(--gray)" id="pageSubtitle">Panel manajemen sistem akademik</p>
+      </div>
+      <div class="header-right">
+        <div style="font-size:13px;color:var(--gray);background:var(--light);padding:7px 14px;border-radius:20px;" id="dateBadge"></div>
+        <div class="user-profile">
+          <img id="avatarImg" src="" alt="Avatar">
+          <div class="user-info">
+            <span class="user-name" id="userNameHeader">Admin</span>
+            <span class="user-role">Administrator</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="hifi-content">
+      <div id="dynamicContent">
+        <div class="loading-spinner">
+          <i class="fas fa-spinner fa-pulse" style="font-size:24px;color:var(--primary);"></i>
+          <p style="margin-top:12px;">Memuat data...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Siswa -->
+<div class="modal-overlay" id="modalSiswa">
+  <div class="modal">
+    <div class="modal-title"><i class="fas fa-user-graduate"></i> <span id="modalSiswaTitle">Tambah Siswa</span></div>
+    <div class="form-grid">
+      <div class="form-group"><label>NIS</label><input type="text" id="siswa_nis" placeholder="Contoh: 12TKJ1001"></div>
+      <div class="form-group"><label>Nama Lengkap</label><input type="text" id="siswa_name" placeholder="Nama siswa"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="siswa_email" placeholder="email@smk.sch.id"></div>
+      <div class="form-group"><label>Kelas</label><input type="text" id="siswa_class" placeholder="Contoh: XII TKJ 1"></div>
+      <div class="form-group"><label>Wali Kelas</label><input type="text" id="siswa_walikelas" placeholder="Nama wali kelas"></div>
+      <div class="form-group"><label>No. Telepon</label><input type="text" id="siswa_phone" placeholder="08xx"></div>
+      <div class="form-group full"><label>Alamat</label><input type="text" id="siswa_address" placeholder="Alamat lengkap"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="cancelSiswa">Batal</button>
+      <button class="btn-submit" id="submitSiswa"><i class="fas fa-save"></i> Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Guru -->
+<div class="modal-overlay" id="modalGuru">
+  <div class="modal">
+    <div class="modal-title"><i class="fas fa-chalkboard-teacher"></i> <span id="modalGuruTitle">Tambah Guru</span></div>
+    <div class="form-grid">
+      <div class="form-group"><label>NIS/NIP</label><input type="text" id="guru_nis" placeholder="Contoh: GURU001"></div>
+      <div class="form-group"><label>Nama Lengkap</label><input type="text" id="guru_name" placeholder="Nama guru"></div>
+      <div class="form-group full"><label>Email</label><input type="email" id="guru_email" placeholder="email@smk.sch.id"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="cancelGuru">Batal</button>
+      <button class="btn-submit" id="submitGuru"><i class="fas fa-save"></i> Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Jadwal -->
+<div class="modal-overlay" id="modalJadwal">
+  <div class="modal">
+    <div class="modal-title"><i class="fas fa-calendar-plus"></i> <span id="modalJadwalTitle">Tambah Jadwal</span></div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Hari</label>
+        <select id="jadwal_day">
+          <option value="Senin">Senin</option><option value="Selasa">Selasa</option>
+          <option value="Rabu">Rabu</option><option value="Kamis">Kamis</option>
+          <option value="Jumat">Jumat</option><option value="Sabtu">Sabtu</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Ruang</label><input type="text" id="jadwal_room" placeholder="Contoh: Lab TKJ 1"></div>
+      <div class="form-group"><label>Jam Mulai</label><input type="time" id="jadwal_start"></div>
+      <div class="form-group"><label>Jam Selesai</label><input type="time" id="jadwal_end"></div>
+      <div class="form-group"><label>ID Guru</label><input type="number" id="jadwal_teacher" placeholder="ID guru"></div>
+      <div class="form-group"><label>ID Mata Pelajaran</label><input type="number" id="jadwal_subject" placeholder="ID mapel"></div>
+      <div class="form-group full"><label>ID Kelas</label><input type="number" id="jadwal_class" placeholder="ID kelas"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="cancelJadwal">Batal</button>
+      <button class="btn-submit" id="submitJadwal"><i class="fas fa-save"></i> Simpan</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const BASE_URL = 'https://smksti-pgri-11-serpong-production.up.railway.app';
+
+function getToken() { return localStorage.getItem('token'); }
+function getUser()  { const u = localStorage.getItem('user'); return u ? JSON.parse(u) : null; }
+function isLoggedIn() { return !!getToken() && !!getUser(); }
+function logout() { localStorage.removeItem('token'); localStorage.removeItem('user'); window.location.href = 'index.html'; }
+
+async function apiFetch(endpoint, options = {}) {
+  try {
+    const res = await fetch(`${BASE_URL}${endpoint}`, {
+      ...options,
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}`, ...(options.headers||{}) }
+    });
+    return await res.json();
+  } catch(err) { return { success: false, message: 'Koneksi gagal' }; }
+}
+
+function initials(name) {
+  if (!name) return 'AD';
+  return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
+
+function formatDate() {
+  return new Date().toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+}
+
+function showAlert(msg, type='success') {
+  const old = document.querySelector('.alert-bar');
+  if (old) old.remove();
+  const el = document.createElement('div');
+  el.className = `alert-bar ${type}`;
+  el.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i> ${msg}`;
+  document.getElementById('dynamicContent').prepend(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+// ════════════════════════════
+// STATE
+// ════════════════════════════
+let editId = null;
+let editType = null;
+
+// ════════════════════════════
+// TABS
+// ════════════════════════════
+
+async function tabDashboard() {
+  const [siswaRes, guruRes, jadwalRes] = await Promise.all([
+    apiFetch('/api/users/students'),
+    apiFetch('/api/users/teachers'),
+    apiFetch('/api/schedules')
+  ]);
+
+  const totalSiswa = siswaRes.success ? siswaRes.data.length : 0;
+  const totalGuru  = guruRes.success  ? guruRes.data.length  : 0;
+  const totalJadwal = jadwalRes.success ? jadwalRes.data.length : 0;
+
+  // Recent siswa
+  const recentSiswa = siswaRes.success ? siswaRes.data.slice(0,5) : [];
+  const recentRows = recentSiswa.map(s => `
+    <tr>
+      <td><div class="td-name">
+        <div class="mini-avatar">${initials(s.name)}</div>${s.name}
+      </div></td>
+      <td style="font-size:12px;color:var(--gray)">${s.nis||'-'}</td>
+      <td><span class="badge-primary">${s.class_name||'-'}</span></td>
+      <td><span class="badge-success">Aktif</span></td>
+    </tr>`).join('');
+
+  return `
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
+        <div class="stat-info">
+          <h4>Total Siswa</h4>
+          <div class="stat-value">${totalSiswa}</div>
+          <div class="stat-label">Siswa Terdaftar</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        <div class="stat-info">
+          <h4>Total Guru</h4>
+          <div class="stat-value">${totalGuru}</div>
+          <div class="stat-label">Guru Aktif</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+        <div class="stat-info">
+          <h4>Total Jadwal</h4>
+          <div class="stat-value">${totalJadwal}</div>
+          <div class="stat-label">Jadwal Aktif</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-premium">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3><i class="fas fa-users" style="color:var(--primary);margin-right:8px;"></i>Siswa Terbaru</h3>
+        <button class="btn-add" onclick="switchTab('siswa')">
+          <i class="fas fa-arrow-right"></i> Lihat Semua
+        </button>
+      </div>
+      <table class="table-premium">
+        <thead><tr><th>Nama</th><th>NIS</th><th>Kelas</th><th>Status</th></tr></thead>
+        <tbody>${recentRows||'<tr><td colspan="4" style="text-align:center;color:var(--gray);">Belum ada data</td></tr>'}</tbody>
+      </table>
+    </div>`;
+}
+
+async function tabSiswa() {
+  const res = await apiFetch('/api/users/students');
+  const all = res.success ? res.data : [];
+
+  const rows = all.length > 0 ? all.map(s => `
+    <tr>
+      <td><div class="td-name">
+        <div class="mini-avatar">${initials(s.name)}</div>${s.name}
+      </div></td>
+      <td style="font-size:12px;color:var(--gray)">${s.nis||'-'}</td>
+      <td><span class="badge-primary">${s.class_name||'-'}</span></td>
+      <td style="font-size:12px;color:var(--gray)">${s.email||'-'}</td>
+      <td style="font-size:12px;color:var(--gray)">${s.phone||'-'}</td>
+      <td>
+        <div class="action-btns">
+          <button class="btn-edit" onclick="openEditSiswa(${s.id},'${s.nis||''}','${s.name}','${s.email||''}','${s.class_name||''}','${s.wali_kelas||''}','${s.phone||''}','${s.address||''}')">
+            <i class="fas fa-pencil"></i> Edit
+          </button>
+          <button class="btn-delete" onclick="deleteSiswa(${s.id},'${s.name}')">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </td>
+    </tr>`).join('')
+  : '<tr><td colspan="6"><div class="empty-state"><i class="fas fa-users"></i><p>Belum ada data siswa</p></div></td></tr>';
+
+  return `
+    <div class="card-premium">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3><i class="fas fa-user-graduate" style="color:var(--primary);margin-right:8px;"></i>Data Siswa</h3>
+        <button class="btn-add" id="addSiswaBtn"><i class="fas fa-plus"></i> Tambah Siswa</button>
+      </div>
+      <div class="search-filter">
+        <input type="text" id="searchSiswa" placeholder="Cari nama atau NIS...">
+        <input type="text" id="filterKelas" placeholder="Filter kelas...">
+      </div>
+      <table class="table-premium" id="siswaTable">
+        <thead><tr><th>Nama</th><th>NIS</th><th>Kelas</th><th>Email</th><th>Telepon</th><th>Aksi</th></tr></thead>
+        <tbody id="siswaTbody">${rows}</tbody>
+      </table>
+      <div class="pagination">
+        <span class="page-info">Total: ${all.length} siswa</span>
+      </div>
+    </div>`;
+}
+
+async function tabGuru() {
+  const res = await apiFetch('/api/users/teachers');
+  const all = res.success ? res.data : [];
+
+  const rows = all.length > 0 ? all.map(g => `
+    <tr>
+      <td><div class="td-name">
+        <div class="mini-avatar" style="background:linear-gradient(135deg,#059669,#10b981);">${initials(g.name)}</div>${g.name}
+      </div></td>
+      <td style="font-size:12px;color:var(--gray)">${g.nis||'-'}</td>
+      <td style="font-size:12px;color:var(--gray)">${g.email||'-'}</td>
+      <td><span class="badge-success">Aktif</span></td>
+      <td>
+        <div class="action-btns">
+          <button class="btn-edit" onclick="openEditGuru(${g.id},'${g.nis||''}','${g.name}','${g.email||''}')">
+            <i class="fas fa-pencil"></i> Edit
+          </button>
+          <button class="btn-delete" onclick="deleteGuru(${g.id},'${g.name}')">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </td>
+    </tr>`).join('')
+  : '<tr><td colspan="5"><div class="empty-state"><i class="fas fa-chalkboard-teacher"></i><p>Belum ada data guru</p></div></td></tr>';
+
+  return `
+    <div class="card-premium">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3><i class="fas fa-chalkboard-teacher" style="color:var(--primary);margin-right:8px;"></i>Data Guru</h3>
+        <button class="btn-add" id="addGuruBtn"><i class="fas fa-plus"></i> Tambah Guru</button>
+      </div>
+      <div class="search-filter">
+        <input type="text" id="searchGuru" placeholder="Cari nama atau NIS...">
+      </div>
+      <table class="table-premium">
+        <thead><tr><th>Nama</th><th>NIS/NIP</th><th>Email</th><th>Status</th><th>Aksi</th></tr></thead>
+        <tbody id="guruTbody">${rows}</tbody>
+      </table>
+      <div class="pagination">
+        <span class="page-info">Total: ${all.length} guru</span>
+      </div>
+    </div>`;
+}
+
+async function tabJadwal() {
+  const res = await apiFetch('/api/schedules');
+  const all = res.success ? res.data : [];
+  const days = ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+
+  const grouped = {};
+  all.forEach(s => {
+    if (!grouped[s.day]) grouped[s.day] = [];
+    grouped[s.day].push(s);
+  });
+
+  let rows = '';
+  if (all.length === 0) {
+    rows = '<tr><td colspan="6"><div class="empty-state"><i class="fas fa-calendar-times"></i><p>Belum ada jadwal</p></div></td></tr>';
+  } else {
+    days.forEach(day => {
+      if (!grouped[day]) return;
+      rows += `<tr style="background:#f0f4f8;"><td colspan="6" style="font-size:11px;font-weight:700;color:var(--primary);padding:8px 12px;text-transform:uppercase;letter-spacing:0.5px;">${day}</td></tr>`;
+      grouped[day].forEach(s => {
+        rows += `<tr>
+          <td style="padding-left:24px;">${s.start_time||'-'} – ${s.end_time||'-'}</td>
+          <td>${s.Subject?.name||'-'}</td>
+          <td>${s.teacher?.name||'-'}</td>
+          <td><span class="badge-primary">${s.Class?.name||'-'}</span></td>
+          <td>${s.room||'-'}</td>
+          <td>
+            <div class="action-btns">
+              <button class="btn-edit" onclick="openEditJadwal(${s.id},'${s.day}','${s.room}','${s.start_time}','${s.end_time}',${s.teacher_id||0},${s.subject_id||0},${s.class_id||0})">
+                <i class="fas fa-pencil"></i> Edit
+              </button>
+              <button class="btn-delete" onclick="deleteJadwal(${s.id})">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>`;
+      });
+    });
+  }
+
+  return `
+    <div class="card-premium">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3><i class="fas fa-calendar-alt" style="color:var(--primary);margin-right:8px;"></i>Jadwal Pelajaran</h3>
+        <button class="btn-add" id="addJadwalBtn"><i class="fas fa-plus"></i> Tambah Jadwal</button>
+      </div>
+      <table class="table-premium">
+        <thead><tr><th>Jam</th><th>Mata Pelajaran</th><th>Guru</th><th>Kelas</th><th>Ruang</th><th>Aksi</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <div class="pagination">
+        <span class="page-info">Total: ${all.length} jadwal</span>
+      </div>
+    </div>`;
+}
+
+async function tabTagihan() {
+  return `
+    <div class="card-premium">
+      <h3 style="margin-bottom:16px;"><i class="fas fa-receipt" style="color:var(--primary);margin-right:8px;"></i>Manajemen Tagihan</h3>
+      <div style="text-align:center;padding:48px 20px;color:var(--gray);">
+        <i class="fas fa-tools" style="font-size:40px;margin-bottom:12px;display:block;opacity:0.3;"></i>
+        <p>Fitur manajemen tagihan akan segera tersedia.</p>
+        <p style="font-size:12px;margin-top:8px;">Data tagihan dapat dilihat per siswa di halaman Data Siswa.</p>
+      </div>
+    </div>`;
+}
+
+// ════════════════════════════
+// RENDER
+// ════════════════════════════
+const tabTitles = {
+  dashboard: ['Dashboard Admin','Panel manajemen sistem akademik'],
+  siswa:     ['Data Siswa','Kelola data seluruh siswa'],
+  guru:      ['Data Guru','Kelola data seluruh guru'],
+  jadwal:    ['Jadwal Pelajaran','Kelola jadwal mengajar per kelas'],
+  tagihan:   ['Manajemen Tagihan','Kelola tagihan siswa']
+};
+const tabFns = { dashboard: tabDashboard, siswa: tabSiswa, guru: tabGuru, jadwal: tabJadwal, tagihan: tabTagihan };
+
+function switchTab(tab) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.tab === tab));
+  render(tab);
+}
+
+async function render(tab) {
+  const [title, sub] = tabTitles[tab] || ['Dashboard',''];
+  document.getElementById('pageTitle').textContent = title;
+  document.getElementById('pageSubtitle').textContent = sub;
+  const container = document.getElementById('dynamicContent');
+  container.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-pulse" style="color:var(--primary);font-size:24px;"></i><p style="margin-top:12px;">Memuat data...</p></div>`;
+  try {
+    container.innerHTML = await tabFns[tab]();
+    attachEvents(tab);
+  } catch(err) {
+    container.innerHTML = `<div class="alert-bar danger"><i class="fas fa-exclamation-circle"></i> Gagal memuat data.</div>`;
+    console.error(err);
+  }
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.tab === tab));
+}
+
+// ════════════════════════════
+// EVENTS
+// ════════════════════════════
+function attachEvents(tab) {
+  if (tab === 'siswa') {
+    document.getElementById('addSiswaBtn')?.addEventListener('click', () => openAddSiswa());
+    document.getElementById('searchSiswa')?.addEventListener('input', filterSiswa);
+    document.getElementById('filterKelas')?.addEventListener('input', filterSiswa);
+  }
+  if (tab === 'guru') {
+    document.getElementById('addGuruBtn')?.addEventListener('click', () => openAddGuru());
+    document.getElementById('searchGuru')?.addEventListener('input', filterGuru);
+  }
+  if (tab === 'jadwal') {
+    document.getElementById('addJadwalBtn')?.addEventListener('click', () => openAddJadwal());
+  }
+}
+
+function filterSiswa() {
+  const q = document.getElementById('searchSiswa')?.value.toLowerCase() || '';
+  const k = document.getElementById('filterKelas')?.value.toLowerCase() || '';
+  document.querySelectorAll('#siswaTbody tr').forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.style.display = text.includes(q) && text.includes(k) ? '' : 'none';
+  });
+}
+
+function filterGuru() {
+  const q = document.getElementById('searchGuru')?.value.toLowerCase() || '';
+  document.querySelectorAll('#guruTbody tr').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+// ── SISWA CRUD ──
+function openAddSiswa() {
+  editId = null; editType = 'siswa';
+  document.getElementById('modalSiswaTitle').textContent = 'Tambah Siswa';
+  ['nis','name','email','class','walikelas','phone','address'].forEach(f => {
+    document.getElementById(`siswa_${f}`).value = '';
+  });
+  document.getElementById('modalSiswa').classList.add('show');
+}
+
+function openEditSiswa(id, nis, name, email, cls, wali, phone, address) {
+  editId = id; editType = 'siswa';
+  document.getElementById('modalSiswaTitle').textContent = 'Edit Siswa';
+  document.getElementById('siswa_nis').value = nis;
+  document.getElementById('siswa_name').value = name;
+  document.getElementById('siswa_email').value = email;
+  document.getElementById('siswa_class').value = cls;
+  document.getElementById('siswa_walikelas').value = wali;
+  document.getElementById('siswa_phone').value = phone;
+  document.getElementById('siswa_address').value = address;
+  document.getElementById('modalSiswa').classList.add('show');
+}
+
+async function deleteSiswa(id, name) {
+  if (!confirm(`Hapus siswa "${name}"? Tindakan ini tidak bisa dibatalkan.`)) return;
+  const res = await apiFetch(`/api/users/${id}`, { method: 'DELETE' });
+  if (res.success) { showAlert('Siswa berhasil dihapus'); render('siswa'); }
+  else showAlert(res.message || 'Gagal menghapus', 'danger');
+}
+
+// ── GURU CRUD ──
+function openAddGuru() {
+  editId = null; editType = 'guru';
+  document.getElementById('modalGuruTitle').textContent = 'Tambah Guru';
+  ['nis','name','email'].forEach(f => document.getElementById(`guru_${f}`).value = '');
+  document.getElementById('modalGuru').classList.add('show');
+}
+
+function openEditGuru(id, nis, name, email) {
+  editId = id; editType = 'guru';
+  document.getElementById('modalGuruTitle').textContent = 'Edit Guru';
+  document.getElementById('guru_nis').value = nis;
+  document.getElementById('guru_name').value = name;
+  document.getElementById('guru_email').value = email;
+  document.getElementById('modalGuru').classList.add('show');
+}
+
+async function deleteGuru(id, name) {
+  if (!confirm(`Hapus guru "${name}"?`)) return;
+  const res = await apiFetch(`/api/users/${id}`, { method: 'DELETE' });
+  if (res.success) { showAlert('Guru berhasil dihapus'); render('guru'); }
+  else showAlert(res.message || 'Gagal menghapus', 'danger');
+}
+
+// ── JADWAL CRUD ──
+function openAddJadwal() {
+  editId = null;
+  document.getElementById('modalJadwalTitle').textContent = 'Tambah Jadwal';
+  ['room','start','end','teacher','subject','class'].forEach(f => {
+    const el = document.getElementById(`jadwal_${f}`);
+    if (el) el.value = '';
+  });
+  document.getElementById('modalJadwal').classList.add('show');
+}
+
+function openEditJadwal(id, day, room, start, end, teacher, subject, cls) {
+  editId = id;
+  document.getElementById('modalJadwalTitle').textContent = 'Edit Jadwal';
+  document.getElementById('jadwal_day').value = day;
+  document.getElementById('jadwal_room').value = room;
+  document.getElementById('jadwal_start').value = start;
+  document.getElementById('jadwal_end').value = end;
+  document.getElementById('jadwal_teacher').value = teacher;
+  document.getElementById('jadwal_subject').value = subject;
+  document.getElementById('jadwal_class').value = cls;
+  document.getElementById('modalJadwal').classList.add('show');
+}
+
+async function deleteJadwal(id) {
+  if (!confirm('Hapus jadwal ini?')) return;
+  const res = await apiFetch(`/api/schedules/${id}`, { method: 'DELETE' });
+  if (res.success) { showAlert('Jadwal berhasil dihapus'); render('jadwal'); }
+  else showAlert(res.message || 'Gagal menghapus', 'danger');
+}
+
+// ── MODAL SUBMIT ──
+document.getElementById('cancelSiswa')?.addEventListener('click', () => document.getElementById('modalSiswa').classList.remove('show'));
+document.getElementById('cancelGuru')?.addEventListener('click', () => document.getElementById('modalGuru').classList.remove('show'));
+document.getElementById('cancelJadwal')?.addEventListener('click', () => document.getElementById('modalJadwal').classList.remove('show'));
+
+document.getElementById('submitSiswa')?.addEventListener('click', async () => {
+  const body = {
+    nis: document.getElementById('siswa_nis').value,
+    name: document.getElementById('siswa_name').value,
+    email: document.getElementById('siswa_email').value,
+    class_name: document.getElementById('siswa_class').value,
+    wali_kelas: document.getElementById('siswa_walikelas').value,
+    phone: document.getElementById('siswa_phone').value,
+    address: document.getElementById('siswa_address').value,
+    role: 'student'
+  };
+  if (!body.name || !body.nis) { alert('Nama dan NIS wajib diisi'); return; }
+  const res = editId
+    ? await apiFetch(`/api/users/${editId}`, { method:'PUT', body: JSON.stringify(body) })
+    : await apiFetch('/api/users', { method:'POST', body: JSON.stringify(body) });
+  if (res.success) {
+    document.getElementById('modalSiswa').classList.remove('show');
+    showAlert(editId ? 'Siswa berhasil diupdate' : 'Siswa berhasil ditambahkan');
+    render('siswa');
+  } else showAlert(res.message || 'Gagal menyimpan', 'danger');
+});
+
+document.getElementById('submitGuru')?.addEventListener('click', async () => {
+  const body = {
+    nis: document.getElementById('guru_nis').value,
+    name: document.getElementById('guru_name').value,
+    email: document.getElementById('guru_email').value,
+    role: 'teacher'
+  };
+  if (!body.name || !body.nis) { alert('Nama dan NIS wajib diisi'); return; }
+  const res = editId
+    ? await apiFetch(`/api/users/${editId}`, { method:'PUT', body: JSON.stringify(body) })
+    : await apiFetch('/api/users', { method:'POST', body: JSON.stringify(body) });
+  if (res.success) {
+    document.getElementById('modalGuru').classList.remove('show');
+    showAlert(editId ? 'Guru berhasil diupdate' : 'Guru berhasil ditambahkan');
+    render('guru');
+  } else showAlert(res.message || 'Gagal menyimpan', 'danger');
+});
+
+document.getElementById('submitJadwal')?.addEventListener('click', async () => {
+  const body = {
+    day: document.getElementById('jadwal_day').value,
+    room: document.getElementById('jadwal_room').value,
+    start_time: document.getElementById('jadwal_start').value,
+    end_time: document.getElementById('jadwal_end').value,
+    teacher_id: parseInt(document.getElementById('jadwal_teacher').value),
+    subject_id: parseInt(document.getElementById('jadwal_subject').value),
+    class_id: parseInt(document.getElementById('jadwal_class').value)
+  };
+  const res = editId
+    ? await apiFetch(`/api/schedules/${editId}`, { method:'PUT', body: JSON.stringify(body) })
+    : await apiFetch('/api/schedules', { method:'POST', body: JSON.stringify(body) });
+  if (res.success) {
+    document.getElementById('modalJadwal').classList.remove('show');
+    showAlert(editId ? 'Jadwal berhasil diupdate' : 'Jadwal berhasil ditambahkan');
+    render('jadwal');
+  } else showAlert(res.message || 'Gagal menyimpan', 'danger');
+});
+
+// Close modal on overlay click
+['modalSiswa','modalGuru','modalJadwal'].forEach(id => {
+  document.getElementById(id)?.addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('show');
+  });
+});
+
+// ════════════════════════════
+// INIT
+// ════════════════════════════
+(function init() {
+  if (!isLoggedIn()) { window.location.href = 'index.html'; return; }
+  const user = getUser();
+  if (user.role !== 'admin') {
+    window.location.href = user.role === 'teacher' ? 'guru-dashboard.html' : 'dashboard.html';
+    return;
+  }
+  document.getElementById('sidebarName').textContent = user.name || 'Admin';
+  document.getElementById('userNameHeader').textContent = user.name || 'Admin';
+  document.getElementById('dateBadge').textContent = formatDate();
+  document.getElementById('avatarImg').src =
+    `https://ui-avatars.com/api/?background=1e3c72&color=fff&name=${encodeURIComponent(user.name||'A')}`;
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => render(item.dataset.tab));
+  });
+  document.getElementById('logoutBtn')?.addEventListener('click', logout);
+  render('dashboard');
+})();
+</script>
+</body>
+</html>
