@@ -394,7 +394,14 @@ if (document.getElementById('loginBtn')) {
     if (res.success) {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
-      window.location.href = 'dashboard.html';
+      const role = res.data.user.role;
+if (role === 'admin') {
+  window.location.href = 'admin-dashboard.html';
+} else if (role === 'teacher') {
+  window.location.href = 'guru-dashboard.html';
+} else {
+  window.location.href = 'dashboard.html';
+}
     } else {
       alert('❌ ' + (res.message || 'NIS atau password salah'));
       btn.disabled = false;
