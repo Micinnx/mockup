@@ -9,7 +9,6 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f1f5f9; min-height: 100vh; display: flex; }
 
-  /* ── SIDEBAR ── */
   .sidebar {
     width: 220px; flex-shrink: 0; background: #1e3c72;
     display: flex; flex-direction: column; min-height: 100vh; position: fixed; top: 0; left: 0; height: 100%;
@@ -40,136 +39,90 @@
   }
   .uname { font-size: 12px; font-weight: 500; color: #fff; line-height: 1.3; }
   .urole { font-size: 10px; color: rgba(255,255,255,0.5); }
+  .btn-logout {
+    display: flex; align-items: center; gap: 6px; width: 100%; margin-top: 8px;
+    padding: 8px 12px; border-radius: 8px; background: rgba(239,68,68,0.12);
+    color: #fca5a5; border: none; font-size: 12px; cursor: pointer;
+  }
+  .btn-logout:hover { background: rgba(239,68,68,0.22); }
+  .btn-logout i { font-size: 15px; }
 
-  /* ── MAIN ── */
   .main { margin-left: 220px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
   .topbar {
     background: #fff; padding: 13px 22px;
     display: flex; justify-content: space-between; align-items: center;
-    border-bottom: 0.5px solid #e2e8f0; flex-shrink: 0; position: sticky; top: 0; z-index: 10;
+    border-bottom: 0.5px solid #e2e8f0; position: sticky; top: 0; z-index: 10;
   }
   .tb-title { font-size: 14px; font-weight: 500; color: #1e293b; }
   .tb-right  { display: flex; align-items: center; gap: 8px; }
-  .date-pill {
-    font-size: 11px; color: #64748b; background: #f1f5f9;
-    padding: 5px 10px; border-radius: 20px; border: 0.5px solid #e2e8f0;
-  }
+  .date-pill { font-size: 11px; color: #64748b; background: #f1f5f9; padding: 5px 10px; border-radius: 20px; border: 0.5px solid #e2e8f0; }
   .body-wrap { padding: 20px 22px; flex: 1; }
 
-  /* ── STATS ── */
   .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
-  .stat {
-    background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px;
-    padding: 14px; display: flex; align-items: center; gap: 12px;
-  }
-  .stat-ic {
-    width: 44px; height: 44px; border-radius: 10px; background: #1e3c72;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  }
+  .stat { background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 12px; }
+  .stat-ic { width: 44px; height: 44px; border-radius: 10px; background: #1e3c72; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .stat-ic i { font-size: 20px; color: #fff; }
   .stat-num { font-size: 20px; font-weight: 500; color: #1e293b; }
   .stat-lbl { font-size: 11px; color: #64748b; margin-top: 1px; }
 
-  /* ── MENU GRID ── */
   .mgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .mcrd {
-    background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px;
-    padding: 16px; text-align: center; cursor: pointer; transition: border-color 0.15s;
-  }
+  .mcrd { background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px; padding: 16px; text-align: center; cursor: pointer; transition: border-color 0.15s; }
   .mcrd:hover { border-color: #94a3b8; }
-  .mcrd-ic {
-    width: 44px; height: 44px; border-radius: 10px; background: #1e3c72;
-    display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;
-  }
+  .mcrd-ic { width: 44px; height: 44px; border-radius: 10px; background: #1e3c72; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
   .mcrd-ic i { font-size: 20px; color: #fff; }
   .mcrd h4 { font-size: 12px; font-weight: 500; color: #1e293b; }
   .mcrd p  { font-size: 10px; color: #64748b; margin-top: 3px; }
 
-  /* ── CARD ── */
-  .card {
-    background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px;
-    padding: 16px; margin-bottom: 14px;
-  }
+  .card { background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
   .card-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
   .card-hdr h3 { font-size: 13px; font-weight: 500; color: #1e293b; display: flex; align-items: center; gap: 6px; }
   .card-hdr h3 i { font-size: 15px; color: #1e3c72; }
 
-  /* ── TABLE ── */
   table { width: 100%; border-collapse: collapse; }
-  th {
-    background: #f8fafc; padding: 8px 10px; text-align: left;
-    font-size: 10px; font-weight: 500; color: #64748b;
-    border-bottom: 0.5px solid #e2e8f0; text-transform: uppercase; letter-spacing: .5px;
-  }
+  th { background: #f8fafc; padding: 8px 10px; text-align: left; font-size: 10px; font-weight: 500; color: #64748b; border-bottom: 0.5px solid #e2e8f0; text-transform: uppercase; letter-spacing: .5px; }
   td { padding: 9px 10px; border-bottom: 0.5px solid #e2e8f0; color: #1e293b; font-size: 12px; vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
 
-  /* ── BADGES ── */
   .badge { padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 500; display: inline-block; }
   .b-blue   { background: #eff6ff; color: #1d4ed8; }
   .b-amber  { background: #fffbeb; color: #d97706; }
   .b-green  { background: #f0fdf4; color: #16a34a; }
   .b-red    { background: #fef2f2; color: #dc2626; }
-  .b-purple { background: #EEEDFE; color: #3C3489; }
+  .b-purple { background: #f5f3ff; color: #7c3aed; }
 
-  /* ── BUTTONS ── */
-  .btn-prim {
-    background: #1e3c72; color: #fff; border: none;
-    padding: 7px 14px; border-radius: 8px; font-size: 11px; font-weight: 500;
-    cursor: pointer; display: flex; align-items: center; gap: 5px;
-  }
+  .btn-prim { background: #1e3c72; color: #fff; border: none; padding: 7px 14px; border-radius: 8px; font-size: 11px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
   .btn-prim:hover { background: #2a5298; }
   .btn-info    { background: #eff6ff; color: #1d4ed8; border: 0.5px solid #bfdbfe; padding: 5px 10px; border-radius: 6px; font-size: 11px; cursor: pointer; }
   .btn-danger  { background: #fef2f2; color: #dc2626; border: 0.5px solid #fecaca; padding: 5px 10px; border-radius: 6px; font-size: 11px; cursor: pointer; }
-  .btn-save {
-    background: #1e3c72; color: #fff; border: none;
-    padding: 8px 18px; border-radius: 8px; font-size: 12px; font-weight: 500;
-    cursor: pointer; display: flex; align-items: center; gap: 6px;
-  }
+  .btn-success { background: #f0fdf4; color: #16a34a; border: 0.5px solid #bbf7d0; padding: 5px 10px; border-radius: 6px; font-size: 11px; cursor: pointer; }
+  .btn-save { background: #1e3c72; color: #fff; border: none; padding: 8px 18px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
 
-  /* ── FORM ── */
-  .filter-row { display: flex; gap: 8px; margin-bottom: 14px; }
-  .filter-row select, .filter-row input {
-    padding: 6px 10px; border: 0.5px solid #e2e8f0; border-radius: 8px;
-    font-size: 11px; background: #fff; color: #1e293b;
-  }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .filter-row { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .filter-row select, .filter-row input { padding: 6px 10px; border: 0.5px solid #e2e8f0; border-radius: 8px; font-size: 11px; background: #fff; color: #1e293b; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
   .fg { display: flex; flex-direction: column; gap: 4px; }
   .fg label { font-size: 10px; font-weight: 500; color: #64748b; text-transform: uppercase; letter-spacing: .4px; }
-  .fg input, .fg select {
-    padding: 7px 10px; border: 0.5px solid #e2e8f0; border-radius: 8px;
-    font-size: 12px; background: #fff; color: #1e293b;
-  }
-  .sec-lbl {
-    font-size: 10px; font-weight: 500; color: #64748b; text-transform: uppercase;
-    letter-spacing: .5px; padding-bottom: 8px; border-bottom: 0.5px solid #e2e8f0; margin-bottom: 12px;
-  }
+  .fg input, .fg select { padding: 7px 10px; border: 0.5px solid #e2e8f0; border-radius: 8px; font-size: 12px; background: #fff; color: #1e293b; }
+  .sec-lbl { font-size: 10px; font-weight: 500; color: #64748b; text-transform: uppercase; letter-spacing: .5px; padding-bottom: 8px; border-bottom: 0.5px solid #e2e8f0; margin-bottom: 12px; }
 
-  .mini-ava {
-    width: 26px; height: 26px; border-radius: 50%; background: #eff6ff;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 9px; font-weight: 500; color: #1d4ed8; flex-shrink: 0;
-  }
-  .mini-ava-g { background: #EEEDFE; color: #3C3489; }
+  .mini-ava { width: 26px; height: 26px; border-radius: 50%; background: #eff6ff; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 500; color: #1d4ed8; flex-shrink: 0; }
+  .mini-ava-g { background: #f5f3ff; color: #7c3aed; }
   .td-flex { display: flex; align-items: center; gap: 7px; }
 
-  /* ── PAGES ── */
+  /* Modal */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; align-items: center; justify-content: center; }
+  .modal-overlay.show { display: flex; }
+  .modal { background: #fff; border-radius: 14px; padding: 20px; width: 480px; max-width: 95vw; max-height: 90vh; overflow-y: auto; }
+  .modal-hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .modal-hdr h3 { font-size: 14px; font-weight: 500; color: #1e293b; }
+  .modal-close { background: none; border: none; font-size: 18px; cursor: pointer; color: #64748b; }
+
   .page { display: none; }
   .page.active { display: block; }
-
-  /* ── LOGOUT ── */
-  .btn-logout {
-    display: flex; align-items: center; gap: 6px; width: 100%; margin-top: 8px;
-    padding: 8px 12px; border-radius: 8px; background: rgba(239,68,68,0.12);
-    color: #fca5a5; border: none; font-size: 12px; cursor: pointer; transition: background 0.15s;
-  }
-  .btn-logout:hover { background: rgba(239,68,68,0.22); }
-  .btn-logout i { font-size: 15px; }
 </style>
 </head>
 <body>
 
-<!-- ══════════════ SIDEBAR ══════════════ -->
 <div class="sidebar">
   <div class="sb-top">
     <i class="ti ti-school sb-icon"></i>
@@ -177,31 +130,25 @@
     <div class="sb-sub">SERPONG</div>
   </div>
   <div class="sb-nav">
-    <a class="sbi active" onclick="showPage('dashboard', this)"><i class="ti ti-layout-dashboard"></i>Dashboard</a>
-    <a class="sbi" onclick="showPage('siswa', this)"><i class="ti ti-users"></i>Data siswa</a>
-    <a class="sbi" onclick="showPage('guru', this)"><i class="ti ti-chalkboard"></i>Data guru</a>
-    <a class="sbi" onclick="showPage('jadwal', this)"><i class="ti ti-calendar-event"></i>Jadwal</a>
-    <a class="sbi" onclick="showPage('tagihan', this)"><i class="ti ti-receipt"></i>Tagihan</a>
-    <a class="sbi" onclick="showPage('pengumuman', this)"><i class="ti ti-speakerphone"></i>Pengumuman</a>
+    <a class="sbi active" onclick="showPage('dashboard',this)"><i class="ti ti-layout-dashboard"></i>Dashboard</a>
+    <a class="sbi" onclick="showPage('siswa',this)"><i class="ti ti-users"></i>Data siswa</a>
+    <a class="sbi" onclick="showPage('guru',this)"><i class="ti ti-chalkboard"></i>Data guru</a>
+    <a class="sbi" onclick="showPage('jadwal',this)"><i class="ti ti-calendar-event"></i>Jadwal</a>
+    <a class="sbi" onclick="showPage('tagihan',this)"><i class="ti ti-receipt"></i>Tagihan</a>
+    <a class="sbi" onclick="showPage('pengumuman',this)"><i class="ti ti-speakerphone"></i>Pengumuman</a>
   </div>
   <div class="sb-foot">
     <div class="sb-user">
       <div class="ava">AD</div>
-      <div>
-        <div class="uname">Admin</div>
-        <div class="urole">Administrator</div>
-      </div>
+      <div><div class="uname">Admin</div><div class="urole">Administrator</div></div>
     </div>
-    <button class="btn-logout" onclick="doLogout()">
-      <i class="ti ti-logout"></i>Keluar
-    </button>
+    <button class="btn-logout" onclick="doLogout()"><i class="ti ti-logout"></i>Keluar</button>
   </div>
 </div>
 
-<!-- ══════════════ MAIN ══════════════ -->
 <div class="main">
 
-  <!-- PAGE: DASHBOARD -->
+  <!-- DASHBOARD -->
   <div class="page active" id="page-dashboard">
     <div class="topbar">
       <div class="tb-title">Dashboard</div>
@@ -209,55 +156,36 @@
     </div>
     <div class="body-wrap">
       <div class="stats">
-        <div class="stat">
-          <div class="stat-ic"><i class="ti ti-users"></i></div>
-          <div><div class="stat-num" id="stat-siswa">—</div><div class="stat-lbl">Total siswa</div></div>
-        </div>
-        <div class="stat">
-          <div class="stat-ic"><i class="ti ti-chalkboard"></i></div>
-          <div><div class="stat-num" id="stat-guru">—</div><div class="stat-lbl">Total guru</div></div>
-        </div>
-        <div class="stat">
-          <div class="stat-ic"><i class="ti ti-calendar"></i></div>
-          <div><div class="stat-num" id="stat-jadwal">—</div><div class="stat-lbl">Total jadwal</div></div>
-        </div>
-        <div class="stat">
-          <div class="stat-ic"><i class="ti ti-receipt"></i></div>
-          <div><div class="stat-num" id="stat-tagihan">—</div><div class="stat-lbl">Tagihan belum lunas</div></div>
-        </div>
+        <div class="stat"><div class="stat-ic"><i class="ti ti-users"></i></div><div><div class="stat-num" id="stat-siswa">80</div><div class="stat-lbl">Total siswa</div></div></div>
+        <div class="stat"><div class="stat-ic"><i class="ti ti-chalkboard"></i></div><div><div class="stat-num" id="stat-guru">9</div><div class="stat-lbl">Total guru</div></div></div>
+        <div class="stat"><div class="stat-ic"><i class="ti ti-calendar"></i></div><div><div class="stat-num" id="stat-jadwal">—</div><div class="stat-lbl">Total jadwal</div></div></div>
+        <div class="stat"><div class="stat-ic"><i class="ti ti-receipt"></i></div><div><div class="stat-num" id="stat-tagihan">—</div><div class="stat-lbl">Tagihan belum lunas</div></div></div>
       </div>
       <div class="mgrid">
-        <div class="mcrd" onclick="showPage('siswa', document.querySelector('.sbi:nth-child(2)'))">
-          <div class="mcrd-ic"><i class="ti ti-users"></i></div>
-          <h4>Data siswa</h4><p id="mcrd-siswa">Kelola siswa aktif</p>
+        <div class="mcrd" onclick="showPage('siswa',document.querySelectorAll('.sbi')[1])">
+          <div class="mcrd-ic"><i class="ti ti-users"></i></div><h4>Data siswa</h4><p>Kelola 80 siswa aktif</p>
         </div>
-        <div class="mcrd" onclick="showPage('guru', document.querySelector('.sbi:nth-child(3)'))">
-          <div class="mcrd-ic"><i class="ti ti-chalkboard"></i></div>
-          <h4>Data guru</h4><p id="mcrd-guru">Kelola guru pengajar</p>
+        <div class="mcrd" onclick="showPage('guru',document.querySelectorAll('.sbi')[2])">
+          <div class="mcrd-ic"><i class="ti ti-chalkboard"></i></div><h4>Data guru</h4><p>Kelola 9 guru pengajar</p>
         </div>
-        <div class="mcrd" onclick="showPage('jadwal', document.querySelector('.sbi:nth-child(4)'))">
-          <div class="mcrd-ic"><i class="ti ti-calendar-event"></i></div>
-          <h4>Jadwal pelajaran</h4><p>Atur jadwal 4 kelas</p>
+        <div class="mcrd" onclick="showPage('jadwal',document.querySelectorAll('.sbi')[3])">
+          <div class="mcrd-ic"><i class="ti ti-calendar-event"></i></div><h4>Jadwal pelajaran</h4><p>Atur jadwal 4 kelas</p>
         </div>
-        <div class="mcrd" onclick="showPage('tagihan', document.querySelector('.sbi:nth-child(5)'))">
-          <div class="mcrd-ic"><i class="ti ti-receipt"></i></div>
-          <h4>Tagihan</h4><p>Monitor pembayaran SPP</p>
+        <div class="mcrd" onclick="showPage('tagihan',document.querySelectorAll('.sbi')[4])">
+          <div class="mcrd-ic"><i class="ti ti-receipt"></i></div><h4>Tagihan</h4><p>Monitor pembayaran SPP</p>
         </div>
-        <div class="mcrd" onclick="showPage('pengumuman', document.querySelector('.sbi:nth-child(6)'))">
-          <div class="mcrd-ic"><i class="ti ti-speakerphone"></i></div>
-          <h4>Pengumuman</h4><p>Buat &amp; kelola info sekolah</p>
+        <div class="mcrd" onclick="showPage('pengumuman',document.querySelectorAll('.sbi')[5])">
+          <div class="mcrd-ic"><i class="ti ti-speakerphone"></i></div><h4>Pengumuman</h4><p>Buat &amp; kelola info sekolah</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PAGE: DATA SISWA -->
+  <!-- DATA SISWA -->
   <div class="page" id="page-siswa">
     <div class="topbar">
       <div class="tb-title">Data siswa</div>
-      <div class="tb-right">
-        <button class="btn-prim" onclick="showPage('tambah-siswa', null)"><i class="ti ti-plus"></i>Tambah siswa</button>
-      </div>
+      <div class="tb-right"><button class="btn-prim" onclick="openModal('modal-tambah-siswa')"><i class="ti ti-plus"></i>Tambah siswa</button></div>
     </div>
     <div class="body-wrap">
       <div class="card">
@@ -268,89 +196,40 @@
               <option>XII TKJ 1</option><option>XII TKJ 2</option>
               <option>XI TKJ 1</option><option>XI TKJ 2</option>
             </select>
-            <input placeholder="Cari nama / NIS..." id="search-siswa" oninput="filterSiswa()">
+            <input placeholder="Cari nama / NIS..." id="search-siswa" oninput="filterSiswa()" style="padding:6px 10px;border:0.5px solid #e2e8f0;border-radius:8px;font-size:11px">
           </div>
           <span style="font-size:11px;color:#64748b" id="jumlah-siswa">— siswa</span>
         </div>
         <table>
           <tr><th>Nama</th><th>NIS</th><th>Kelas</th><th>Email</th><th>Aksi</th></tr>
-          <tbody id="siswa-tbody">
-            <tr><td colspan="5" style="text-align:center;color:#64748b;font-style:italic;">Memuat data...</td></tr>
-          </tbody>
+          <tbody id="siswa-tbody"><tr><td colspan="5" style="text-align:center;color:#64748b;font-style:italic">Memuat...</td></tr></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- PAGE: TAMBAH SISWA -->
-  <div class="page" id="page-tambah-siswa">
-    <div class="topbar">
-      <div class="tb-title">Tambah siswa baru</div>
-      <div class="tb-right">
-        <button style="padding:6px 12px;border:0.5px solid #e2e8f0;border-radius:8px;font-size:11px;background:#fff;color:#1e293b;cursor:pointer;display:flex;align-items:center;gap:5px" onclick="showPage('siswa', document.querySelector('.sbi:nth-child(2)'))">
-          <i class="ti ti-arrow-left"></i>Kembali
-        </button>
-      </div>
-    </div>
-    <div class="body-wrap">
-      <div class="card">
-        <div class="sec-lbl">Informasi akun</div>
-        <div class="form-row">
-          <div class="fg"><label>NIS</label><input id="form-nis" placeholder="Contoh: 12TKJ1001"></div>
-          <div class="fg"><label>Password</label><input id="form-pass" type="password" placeholder="Min. 8 karakter"></div>
-        </div>
-        <div class="sec-lbl" style="margin-top:14px">Data pribadi</div>
-        <div class="form-row">
-          <div class="fg"><label>Nama lengkap</label><input id="form-nama" placeholder="Nama sesuai ijazah"></div>
-          <div class="fg"><label>Email</label><input id="form-email" placeholder="nama@smkpgri11.sch.id"></div>
-        </div>
-        <div class="form-row">
-          <div class="fg"><label>Kelas</label>
-            <select id="form-kelas">
-              <option>XII TKJ 1</option><option>XII TKJ 2</option>
-              <option>XI TKJ 1</option><option>XI TKJ 2</option>
-            </select>
-          </div>
-          <div class="fg"><label>Wali kelas</label><input id="form-wali" placeholder="Nama wali kelas"></div>
-        </div>
-        <div class="form-row">
-          <div class="fg"><label>No. telepon</label><input id="form-telp" placeholder="08xxxxxxxxxx"></div>
-          <div class="fg"><label>Alamat</label><input id="form-alamat" placeholder="Alamat lengkap"></div>
-        </div>
-        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px">
-          <button style="padding:7px 14px;border:0.5px solid #e2e8f0;border-radius:8px;font-size:11px;background:#fff;color:#1e293b;cursor:pointer" onclick="showPage('siswa', document.querySelector('.sbi:nth-child(2)'))">Batal</button>
-          <button class="btn-save" onclick="tambahSiswa()"><i class="ti ti-device-floppy"></i>Simpan</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PAGE: DATA GURU -->
+  <!-- DATA GURU -->
   <div class="page" id="page-guru">
     <div class="topbar">
       <div class="tb-title">Data guru</div>
-      <div class="tb-right">
-        <button class="btn-prim"><i class="ti ti-plus"></i>Tambah guru</button>
-      </div>
+      <div class="tb-right"><button class="btn-prim"><i class="ti ti-plus"></i>Tambah guru</button></div>
     </div>
     <div class="body-wrap">
       <div class="card">
         <table>
-          <tr><th>Nama</th><th>NIS</th><th>Mata pelajaran</th><th>Email</th><th>Telepon</th><th>Aksi</th></tr>
-          <tbody id="guru-tbody">
-            <tr><td colspan="6" style="text-align:center;color:#64748b;font-style:italic;">Memuat data...</td></tr>
-          </tbody>
+          <tr><th>Nama</th><th>NIS</th><th>Email</th><th>Telepon</th><th>Aksi</th></tr>
+          <tbody id="guru-tbody"><tr><td colspan="5" style="text-align:center;color:#64748b;font-style:italic">Memuat...</td></tr></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- PAGE: JADWAL -->
+  <!-- JADWAL -->
   <div class="page" id="page-jadwal">
     <div class="topbar">
       <div class="tb-title">Jadwal pelajaran</div>
       <div class="tb-right">
-        <select id="filter-jadwal-kelas" onchange="loadJadwal()" style="padding:6px 10px;border:0.5px solid #e2e8f0;border-radius:8px;font-size:11px;background:#fff;color:#1e293b;margin-right:8px">
+        <select id="filter-jadwal-kelas" onchange="loadJadwal()" style="padding:6px 10px;border:0.5px solid #e2e8f0;border-radius:8px;font-size:11px;background:#fff;margin-right:8px">
           <option value="">Semua kelas</option>
           <option>XII TKJ 1</option><option>XII TKJ 2</option>
           <option>XI TKJ 1</option><option>XI TKJ 2</option>
@@ -361,19 +240,18 @@
     <div class="body-wrap">
       <div class="card">
         <table>
-          <tr><th>Hari</th><th>Jam</th><th>Mata pelajaran</th><th>Guru</th><th>Ruang</th><th>Aksi</th></tr>
-          <tbody id="jadwal-tbody">
-            <tr><td colspan="6" style="text-align:center;color:#64748b;font-style:italic;">Memuat data...</td></tr>
-          </tbody>
+          <tr><th>Hari</th><th>Jam</th><th>Mata pelajaran</th><th>Guru</th><th>Kelas</th><th>Ruang</th><th>Aksi</th></tr>
+          <tbody id="jadwal-tbody"><tr><td colspan="7" style="text-align:center;color:#64748b;font-style:italic">Memuat...</td></tr></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- PAGE: TAGIHAN -->
+  <!-- TAGIHAN -->
   <div class="page" id="page-tagihan">
     <div class="topbar">
       <div class="tb-title">Tagihan</div>
+      <div class="tb-right"><button class="btn-prim" onclick="openModal('modal-tambah-tagihan')"><i class="ti ti-plus"></i>Tambah tagihan</button></div>
     </div>
     <div class="body-wrap">
       <div class="card">
@@ -390,30 +268,24 @@
           </select>
         </div>
         <table>
-          <tr><th>Siswa</th><th>NIS</th><th>Kelas</th><th>Bulan</th><th>Jumlah</th><th>Status</th><th>Aksi</th></tr>
-          <tbody id="tagihan-tbody">
-            <tr><td colspan="7" style="text-align:center;color:#64748b;font-style:italic;">Memuat data...</td></tr>
-          </tbody>
+          <tr><th>Siswa</th><th>NIS</th><th>Kelas</th><th>Jenis</th><th>Periode</th><th>Nominal</th><th>Status</th><th>Aksi</th></tr>
+          <tbody id="tagihan-tbody"><tr><td colspan="8" style="text-align:center;color:#64748b;font-style:italic">Memuat...</td></tr></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- PAGE: PENGUMUMAN -->
+  <!-- PENGUMUMAN -->
   <div class="page" id="page-pengumuman">
     <div class="topbar">
       <div class="tb-title">Pengumuman</div>
-      <div class="tb-right">
-        <button class="btn-prim"><i class="ti ti-plus"></i>Buat pengumuman</button>
-      </div>
+      <div class="tb-right"><button class="btn-prim"><i class="ti ti-plus"></i>Buat pengumuman</button></div>
     </div>
     <div class="body-wrap">
       <div class="card">
         <table>
           <tr><th>Judul</th><th>Tanggal</th><th>Aksi</th></tr>
-          <tbody id="pengumuman-tbody">
-            <tr><td colspan="3" style="text-align:center;color:#64748b;font-style:italic;">Belum ada pengumuman</td></tr>
-          </tbody>
+          <tbody id="pengumuman-tbody"><tr><td colspan="3" style="text-align:center;color:#64748b;font-style:italic">Belum ada pengumuman</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -421,269 +293,321 @@
 
 </div><!-- end .main -->
 
+<!-- MODAL TAMBAH SISWA -->
+<div class="modal-overlay" id="modal-tambah-siswa">
+  <div class="modal">
+    <div class="modal-hdr">
+      <h3>Tambah siswa baru</h3>
+      <button class="modal-close" onclick="closeModal('modal-tambah-siswa')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="sec-lbl">Informasi akun</div>
+    <div class="form-grid">
+      <div class="fg"><label>NIS</label><input id="f-nis" placeholder="Contoh: 12TKJ1001"></div>
+      <div class="fg"><label>Password</label><input id="f-pass" type="password" placeholder="Min. 8 karakter"></div>
+    </div>
+    <div class="sec-lbl" style="margin-top:12px">Data pribadi</div>
+    <div class="form-grid">
+      <div class="fg"><label>Nama lengkap</label><input id="f-nama" placeholder="Nama lengkap"></div>
+      <div class="fg"><label>Email</label><input id="f-email" placeholder="email@smkpgri11.sch.id"></div>
+    </div>
+    <div class="form-grid">
+      <div class="fg"><label>Kelas</label>
+        <select id="f-kelas">
+          <option>XII TKJ 1</option><option>XII TKJ 2</option>
+          <option>XI TKJ 1</option><option>XI TKJ 2</option>
+        </select>
+      </div>
+      <div class="fg"><label>No. telepon</label><input id="f-telp" placeholder="08xxxxxxxxxx"></div>
+    </div>
+    <div class="fg" style="margin-bottom:16px"><label>Alamat</label><input id="f-alamat" placeholder="Alamat lengkap"></div>
+    <div style="display:flex;justify-content:flex-end;gap:8px">
+      <button style="padding:7px 14px;border:0.5px solid #e2e8f0;border-radius:8px;font-size:11px;background:#fff;cursor:pointer" onclick="closeModal('modal-tambah-siswa')">Batal</button>
+      <button class="btn-save" onclick="tambahSiswa()"><i class="ti ti-device-floppy"></i>Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL TAMBAH TAGIHAN -->
+<div class="modal-overlay" id="modal-tambah-tagihan">
+  <div class="modal">
+    <div class="modal-hdr">
+      <h3>Tambah tagihan</h3>
+      <button class="modal-close" onclick="closeModal('modal-tambah-tagihan')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="form-grid">
+      <div class="fg"><label>Student ID</label><input id="t-student-id" placeholder="ID siswa (angka)"></div>
+      <div class="fg"><label>Jenis tagihan</label>
+        <select id="t-jenis">
+          <option value="SPP">SPP</option>
+          <option value="Seragam">Seragam</option>
+          <option value="Buku">Buku</option>
+          <option value="Praktikum">Praktikum</option>
+          <option value="Lainnya">Lainnya</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="fg"><label>Periode</label><input id="t-periode" placeholder="Contoh: Juni 2026"></div>
+      <div class="fg"><label>Nominal (Rp)</label><input id="t-nominal" type="number" placeholder="500000"></div>
+    </div>
+    <div class="form-grid">
+      <div class="fg"><label>Status</label>
+        <select id="t-status">
+          <option value="belum_lunas">Belum lunas</option>
+          <option value="lunas">Lunas</option>
+        </select>
+      </div>
+      <div class="fg"><label>Jatuh tempo</label><input id="t-jatuh-tempo" type="date"></div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:8px">
+      <button style="padding:7px 14px;border:0.5px solid #e2e8f0;border-radius:8px;font-size:11px;background:#fff;cursor:pointer" onclick="closeModal('modal-tambah-tagihan')">Batal</button>
+      <button class="btn-save" onclick="tambahTagihan()"><i class="ti ti-device-floppy"></i>Simpan</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const API = 'https://smksti-pgri-11-serpong-production.up.railway.app/api';
 let TOKEN = localStorage.getItem('token');
 let USER  = JSON.parse(localStorage.getItem('user') || '{}');
 let allSiswa = [];
 
-// ── Auth guard ──
-if (!TOKEN || USER.role !== 'admin') {
-  window.location.href = 'index.html';
-}
+if (!TOKEN || USER.role !== 'admin') window.location.href = 'index.html';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Date pill
   const today = new Date();
-  const opts = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-  document.getElementById('date-pill').textContent = today.toLocaleDateString('id-ID', opts);
-
-  loadAdminDashboard();
+  document.getElementById('date-pill').textContent =
+    today.toLocaleDateString('id-ID', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  loadDashboardStats();
 });
 
-// ── Page navigation ──
+// ── Page nav ──
 function showPage(name, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.sbi').forEach(s => s.classList.remove('active'));
-  const page = document.getElementById('page-' + name);
-  if (page) page.classList.add('active');
+  document.getElementById('page-' + name)?.classList.add('active');
   if (el) el.classList.add('active');
-
-  // Lazy load
-  if (name === 'siswa' && !allSiswa.length) loadSiswa();
-  if (name === 'guru') loadGuru();
-  if (name === 'jadwal') loadJadwal();
+  if (name === 'siswa'  && !allSiswa.length) loadSiswa();
+  if (name === 'guru')    loadGuru();
+  if (name === 'jadwal')  loadJadwal();
   if (name === 'tagihan') loadTagihan();
 }
 
-// ── Dashboard ──
-async function loadAdminDashboard() {
+// ── Modal ──
+function openModal(id)  { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+// ── Dashboard stats ──
+async function loadDashboardStats() {
   try {
-    const res = await apiFetch('/admin/dashboard');
-    const d = res?.data || res;
-    document.getElementById('stat-siswa').textContent   = d.totalSiswa   ?? d.total_siswa   ?? '80';
-    document.getElementById('stat-guru').textContent    = d.totalGuru    ?? d.total_guru    ?? '9';
-    document.getElementById('stat-jadwal').textContent  = d.totalJadwal  ?? d.total_jadwal  ?? '—';
-    document.getElementById('stat-tagihan').textContent = d.tagihanBelumLunas ?? d.tagihan_belum_lunas ?? '—';
-    document.getElementById('mcrd-siswa').textContent = `Kelola ${d.totalSiswa ?? d.total_siswa ?? 80} siswa aktif`;
-    document.getElementById('mcrd-guru').textContent  = `Kelola ${d.totalGuru  ?? d.total_guru  ?? 9} guru pengajar`;
+    // Jadwal count
+    const sRes = await apiFetch('/schedules');
+    const jadwalList = sRes?.data || sRes?.schedules || (Array.isArray(sRes) ? sRes : []);
+    document.getElementById('stat-jadwal').textContent = jadwalList.length || '—';
+
+    // Tagihan belum lunas count
+    const tRes = await apiFetch('/invoices?status=belum_lunas');
+    const tList = tRes?.data || (Array.isArray(tRes) ? tRes : []);
+    document.getElementById('stat-tagihan').textContent = tList.length || '0';
   } catch(e) {
-    // Fallback ke angka yg diketahui
-    document.getElementById('stat-siswa').textContent = '80';
-    document.getElementById('stat-guru').textContent  = '9';
-    document.getElementById('mcrd-siswa').textContent = 'Kelola 80 siswa aktif';
-    document.getElementById('mcrd-guru').textContent  = 'Kelola 9 guru pengajar';
+    // Stat fallback sudah hardcode 80 & 9 di HTML
   }
 }
 
 // ── Data Siswa ──
 async function loadSiswa() {
   const tbody = document.getElementById('siswa-tbody');
-  tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#64748b;font-style:italic;">Memuat...</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#64748b;font-style:italic">Memuat...</td></tr>';
   try {
-    const res = await apiFetch('/students');
-    allSiswa = res?.data || res?.students || res || [];
-    renderSiswaTable(allSiswa);
+    const res = await apiFetch('/users/students');
+    allSiswa = res?.data || (Array.isArray(res) ? res : []);
+    renderSiswa(allSiswa);
   } catch(e) {
-    tbody.innerHTML = '<tr><td colspan="5" style="color:#dc2626;text-align:center">Gagal memuat data siswa</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" style="color:#dc2626;text-align:center">Gagal memuat: ' + e.message + '</td></tr>';
   }
 }
 
-function renderSiswaTable(list) {
+function renderSiswa(list) {
   const tbody = document.getElementById('siswa-tbody');
-  document.getElementById('jumlah-siswa').textContent = `${list.length} siswa`;
-  if (!list.length) {
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#64748b;">Tidak ada data</td></tr>';
-    return;
-  }
-  const kelasBadge = { 'XII TKJ 1':'b-blue','XII TKJ 2':'b-amber','XI TKJ 1':'b-green','XI TKJ 2':'b-purple' };
+  document.getElementById('jumlah-siswa').textContent = list.length + ' siswa';
+  if (!list.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#64748b">Tidak ada data</td></tr>'; return; }
+  const kb = {'XII TKJ 1':'b-blue','XII TKJ 2':'b-amber','XI TKJ 1':'b-green','XI TKJ 2':'b-purple'};
   tbody.innerHTML = list.map(s => {
-    const kelas = s.class_name || s.kelas || '—';
-    const badge = kelasBadge[kelas] || 'b-blue';
-    return `
-      <tr>
-        <td><div class="td-flex"><div class="mini-ava">${getInitials(s.name||s.nama)}</div>${s.name||s.nama}</div></td>
-        <td style="font-size:11px;color:#64748b">${s.nis}</td>
-        <td><span class="badge ${badge}">${kelas}</span></td>
-        <td style="font-size:11px;color:#64748b">${s.email || '—'}</td>
-        <td><div style="display:flex;gap:4px">
-          <button class="btn-info">Edit</button>
-          <button class="btn-danger" onclick="hapusSiswa('${s.id||s.nis}')">Hapus</button>
-        </div></td>
-      </tr>
-    `;
+    const kelas = s.class_name || '—';
+    return `<tr>
+      <td><div class="td-flex"><div class="mini-ava">${ini(s.name)}</div>${s.name||'—'}</div></td>
+      <td style="font-size:11px;color:#64748b">${s.nis||'—'}</td>
+      <td><span class="badge ${kb[kelas]||'b-blue'}">${kelas}</span></td>
+      <td style="font-size:11px;color:#64748b">${s.email||'—'}</td>
+      <td><div style="display:flex;gap:4px">
+        <button class="btn-danger" onclick="hapusSiswa(${s.id})">Hapus</button>
+      </div></td>
+    </tr>`;
   }).join('');
 }
 
 function filterSiswa() {
   const kelas  = document.getElementById('filter-kelas').value;
   const search = document.getElementById('search-siswa').value.toLowerCase();
-  const filtered = allSiswa.filter(s => {
-    const matchKelas  = !kelas  || (s.class_name||s.kelas) === kelas;
-    const matchSearch = !search || (s.name||s.nama||'').toLowerCase().includes(search) || s.nis.toLowerCase().includes(search);
-    return matchKelas && matchSearch;
-  });
-  renderSiswaTable(filtered);
+  renderSiswa(allSiswa.filter(s =>
+    (!kelas || s.class_name === kelas) &&
+    (!search || (s.name||'').toLowerCase().includes(search) || (s.nis||'').toLowerCase().includes(search))
+  ));
 }
 
 async function hapusSiswa(id) {
   if (!confirm('Hapus siswa ini?')) return;
   try {
-    await apiFetch(`/students/${id}`, 'DELETE');
-    await loadSiswa();
-  } catch(e) { alert('Gagal menghapus siswa'); }
+    await apiFetch('/users/' + id, 'DELETE');
+    allSiswa = [];
+    loadSiswa();
+  } catch(e) { alert('Gagal menghapus: ' + e.message); }
 }
 
 async function tambahSiswa() {
   const payload = {
-    nis:        document.getElementById('form-nis').value.trim(),
-    password:   document.getElementById('form-pass').value,
-    name:       document.getElementById('form-nama').value.trim(),
-    email:      document.getElementById('form-email').value.trim(),
-    class_name: document.getElementById('form-kelas').value,
-    phone:      document.getElementById('form-telp').value.trim(),
-    address:    document.getElementById('form-alamat').value.trim(),
+    nis: document.getElementById('f-nis').value.trim(),
+    password: document.getElementById('f-pass').value,
+    name: document.getElementById('f-nama').value.trim(),
+    email: document.getElementById('f-email').value.trim(),
+    class_name: document.getElementById('f-kelas').value,
+    phone: document.getElementById('f-telp').value.trim(),
+    address: document.getElementById('f-alamat').value.trim(),
+    role: 'student'
   };
-  if (!payload.nis || !payload.password || !payload.name) {
-    alert('NIS, Password, dan Nama wajib diisi'); return;
-  }
+  if (!payload.nis || !payload.password || !payload.name) { alert('NIS, Password, dan Nama wajib diisi'); return; }
   try {
-    await apiFetch('/students', 'POST', payload);
+    await apiFetch('/users', 'POST', payload);
     alert('Siswa berhasil ditambahkan!');
+    closeModal('modal-tambah-siswa');
     allSiswa = [];
-    showPage('siswa', document.querySelector('.sbi:nth-child(2)'));
-  } catch(e) { alert('Gagal menambahkan siswa: ' + (e.message||'Coba lagi')); }
+    loadSiswa();
+  } catch(e) { alert('Gagal: ' + e.message); }
 }
 
 // ── Data Guru ──
 async function loadGuru() {
   const tbody = document.getElementById('guru-tbody');
-  tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#64748b;font-style:italic;">Memuat...</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#64748b;font-style:italic">Memuat...</td></tr>';
   try {
-    const res = await apiFetch('/teachers');
-    const list = res?.data || res?.teachers || res || [];
-    if (!list.length) {
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#64748b;">Tidak ada data guru</td></tr>';
-      return;
-    }
-    tbody.innerHTML = list.map(g => `
-      <tr>
-        <td><div class="td-flex"><div class="mini-ava mini-ava-g">${getInitials(g.name||g.nama)}</div>${g.name||g.nama}</div></td>
-        <td style="font-size:11px;color:#64748b">${g.nis}</td>
-        <td>${g.subject || g.mata_pelajaran || '—'}</td>
-        <td style="font-size:11px;color:#64748b">${g.email || '—'}</td>
-        <td style="font-size:11px;color:#64748b">${g.phone || g.telepon || '—'}</td>
-        <td><div style="display:flex;gap:4px">
-          <button class="btn-info">Edit</button>
-          <button class="btn-danger">Hapus</button>
-        </div></td>
-      </tr>
-    `).join('');
+    const res = await apiFetch('/users/teachers');
+    const list = res?.data || (Array.isArray(res) ? res : []);
+    if (!list.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#64748b">Tidak ada data guru</td></tr>'; return; }
+    tbody.innerHTML = list.map(g => `<tr>
+      <td><div class="td-flex"><div class="mini-ava mini-ava-g">${ini(g.name)}</div>${g.name||'—'}</div></td>
+      <td style="font-size:11px;color:#64748b">${g.nis||'—'}</td>
+      <td style="font-size:11px;color:#64748b">${g.email||'—'}</td>
+      <td style="font-size:11px;color:#64748b">${g.phone||'—'}</td>
+      <td><button class="btn-info">Edit</button></td>
+    </tr>`).join('');
   } catch(e) {
-    tbody.innerHTML = '<tr><td colspan="6" style="color:#dc2626;text-align:center">Gagal memuat data guru</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" style="color:#dc2626;text-align:center">Gagal memuat: ' + e.message + '</td></tr>';
   }
 }
 
 // ── Jadwal ──
 async function loadJadwal() {
-  const kelas = document.getElementById('filter-jadwal-kelas')?.value || '';
   const tbody = document.getElementById('jadwal-tbody');
-  tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#64748b;font-style:italic;">Memuat...</td></tr>';
+  const kelas = document.getElementById('filter-jadwal-kelas')?.value || '';
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#64748b;font-style:italic">Memuat...</td></tr>';
   try {
-    const path = kelas ? `/schedules?class=${encodeURIComponent(kelas)}` : '/schedules';
+    const path = kelas ? '/schedules?class_name=' + encodeURIComponent(kelas) : '/schedules';
     const res = await apiFetch(path);
-    const list = res?.data || res?.schedules || res || [];
-    const hariMap = { 1:'Senin',2:'Selasa',3:'Rabu',4:'Kamis',5:'Jumat',6:'Sabtu',0:'Minggu' };
-    const hariBadge = { 'Senin':'b-blue','Selasa':'b-amber','Rabu':'b-green','Kamis':'b-purple','Jumat':'b-red' };
-    if (!list.length) {
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#64748b;">Tidak ada jadwal</td></tr>';
-      return;
-    }
+    const list = res?.data || res?.schedules || (Array.isArray(res) ? res : []);
+    if (!list.length) { tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#64748b">Tidak ada jadwal</td></tr>'; return; }
+    const hb = {'Senin':'b-blue','Selasa':'b-amber','Rabu':'b-green','Kamis':'b-purple','Jumat':'b-red'};
     tbody.innerHTML = list.map(j => {
       const hari = j.day || j.hari || '—';
-      const hariStr = typeof hari === 'number' ? (hariMap[hari]||hari) : hari;
-      const badge = hariBadge[hariStr] || 'b-blue';
-      return `
-        <tr>
-          <td><span class="badge ${badge}">${hariStr}</span></td>
-          <td>${j.start_time||j.jamMulai||'—'} – ${j.end_time||j.jamSelesai||'—'}</td>
-          <td>${j.subject||j.mata_pelajaran||'—'}</td>
-          <td>${j.teacher_name||j.guru||'—'}</td>
-          <td>${j.room||j.ruang||'—'}</td>
-          <td><div style="display:flex;gap:4px">
-            <button class="btn-info">Edit</button>
-            <button class="btn-danger">Hapus</button>
-          </div></td>
-        </tr>
-      `;
+      return `<tr>
+        <td><span class="badge ${hb[hari]||'b-blue'}">${hari}</span></td>
+        <td>${j.start_time||'—'} – ${j.end_time||'—'}</td>
+        <td>${j.Subject?.name || j.subject_name || j.subject || '—'}</td>
+        <td>${j.teacher?.name || j.User?.name || j.teacher_name || '—'}</td>
+        <td><span class="badge b-blue">${j.Class?.name || j.class_name || '—'}</span></td>
+        <td>${j.room||'—'}</td>
+        <td><div style="display:flex;gap:4px">
+          <button class="btn-info">Edit</button>
+          <button class="btn-danger">Hapus</button>
+        </div></td>
+      </tr>`;
     }).join('');
   } catch(e) {
-    tbody.innerHTML = '<tr><td colspan="6" style="color:#dc2626;text-align:center">Gagal memuat jadwal</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7" style="color:#dc2626;text-align:center">Gagal memuat: ' + e.message + '</td></tr>';
   }
 }
 
 // ── Tagihan ──
 async function loadTagihan() {
   const tbody = document.getElementById('tagihan-tbody');
-  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#64748b;font-style:italic;">Memuat...</td></tr>';
+  const kelas  = document.getElementById('filter-tagihan-kelas').value;
+  const status = document.getElementById('filter-tagihan-status').value;
+  tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#64748b;font-style:italic">Memuat...</td></tr>';
   try {
-    const kelas  = document.getElementById('filter-tagihan-kelas').value;
-    const status = document.getElementById('filter-tagihan-status').value;
     let path = '/invoices?';
-    if (kelas)  path += `class=${encodeURIComponent(kelas)}&`;
-    if (status) path += `status=${status}`;
+    if (status) path += 'status=' + status + '&';
+    if (kelas)  path += 'class_name=' + encodeURIComponent(kelas);
     const res = await apiFetch(path);
-    const list = res?.data || res?.invoices || res || [];
-    if (!list.length) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#64748b;">Tidak ada tagihan</td></tr>';
-      return;
-    }
+    const list = res?.data || (Array.isArray(res) ? res : []);
+    if (!list.length) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#64748b">Tidak ada tagihan</td></tr>'; return; }
     tbody.innerHTML = list.map(t => {
-      const lunas = t.status === 'lunas' || t.paid === true;
-      return `
-        <tr>
-          <td><div class="td-flex"><div class="mini-ava">${getInitials(t.student_name||t.nama_siswa||'?')}</div>${t.student_name||t.nama_siswa||'—'}</div></td>
-          <td style="font-size:11px;color:#64748b">${t.nis||'—'}</td>
-          <td><span class="badge b-blue">${t.class_name||t.kelas||'—'}</span></td>
-          <td>${t.month||t.bulan||'—'}</td>
-          <td>Rp ${Number(t.amount||t.jumlah||0).toLocaleString('id-ID')}</td>
-          <td><span class="badge ${lunas ? 'b-green' : 'b-red'}">${lunas ? 'Lunas' : 'Belum lunas'}</span></td>
-          <td>
-            ${!lunas ? `<button class="btn-info" onclick="bayarTagihan('${t.id}')">Tandai lunas</button>` : '<span style="color:#64748b;font-size:11px">—</span>'}
-          </td>
-        </tr>
-      `;
+      const lunas = t.status === 'lunas';
+      const user  = t.User || {};
+      return `<tr>
+        <td><div class="td-flex"><div class="mini-ava">${ini(user.name||'?')}</div>${user.name||'—'}</div></td>
+        <td style="font-size:11px;color:#64748b">${user.nis||'—'}</td>
+        <td><span class="badge b-blue">${user.class_name||'—'}</span></td>
+        <td>${t.jenis||'—'}</td>
+        <td>${t.periode||'—'}</td>
+        <td>Rp ${Number(t.nominal||0).toLocaleString('id-ID')}</td>
+        <td><span class="badge ${lunas?'b-green':'b-red'}">${lunas?'Lunas':'Belum lunas'}</span></td>
+        <td>${!lunas?`<button class="btn-success" onclick="tandaiLunas(${t.id})">Tandai lunas</button>`:'<span style="color:#64748b;font-size:11px">—</span>'}</td>
+      </tr>`;
     }).join('');
   } catch(e) {
-    tbody.innerHTML = '<tr><td colspan="7" style="color:#dc2626;text-align:center">Gagal memuat tagihan</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" style="color:#dc2626;text-align:center">Gagal memuat: ' + e.message + '</td></tr>';
   }
 }
 
-async function bayarTagihan(id) {
+async function tandaiLunas(id) {
   if (!confirm('Tandai tagihan ini sebagai lunas?')) return;
   try {
-    await apiFetch(`/invoices/${id}`, 'PUT', { status: 'lunas' });
+    await apiFetch('/invoices/' + id, 'PUT', { status: 'lunas' });
     loadTagihan();
-  } catch(e) { alert('Gagal mengupdate tagihan'); }
+  } catch(e) { alert('Gagal: ' + e.message); }
+}
+
+async function tambahTagihan() {
+  const payload = {
+    student_id: parseInt(document.getElementById('t-student-id').value),
+    jenis:      document.getElementById('t-jenis').value,
+    periode:    document.getElementById('t-periode').value.trim(),
+    nominal:    parseInt(document.getElementById('t-nominal').value),
+    status:     document.getElementById('t-status').value,
+    jatuh_tempo: document.getElementById('t-jatuh-tempo').value
+  };
+  if (!payload.student_id || !payload.periode || !payload.nominal) { alert('Student ID, Periode, dan Nominal wajib diisi'); return; }
+  try {
+    await apiFetch('/invoices', 'POST', payload);
+    alert('Tagihan berhasil ditambahkan!');
+    closeModal('modal-tambah-tagihan');
+    loadTagihan();
+  } catch(e) { alert('Gagal: ' + e.message); }
 }
 
 // ── Helpers ──
-function getInitials(name) {
-  if (!name) return '--';
-  return name.split(' ').slice(0,2).map(w => w[0]).join('').toUpperCase();
+function ini(name) {
+  if (!name) return '?';
+  return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
 }
 
-async function apiFetch(path, method = 'GET', body = null) {
-  const opts = {
-    method,
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` }
-  };
+async function apiFetch(path, method='GET', body=null) {
+  const opts = { method, headers: { 'Content-Type':'application/json', 'Authorization':'Bearer '+TOKEN } };
   if (body) opts.body = JSON.stringify(body);
   const res = await fetch(API + path, opts);
   if (res.status === 401) { doLogout(); return null; }
   if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.message || `HTTP ${res.status}`);
+    const err = await res.json().catch(()=>({}));
+    throw new Error(err.message || 'HTTP ' + res.status);
   }
   return res.json();
 }
