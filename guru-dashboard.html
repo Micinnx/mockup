@@ -9,21 +9,13 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f1f5f9; min-height: 100vh; display: flex; }
 
-  .sidebar {
-    width: 220px; flex-shrink: 0; background: #1e3c72;
-    display: flex; flex-direction: column; min-height: 100vh; position: fixed; top: 0; left: 0; height: 100%;
-  }
+  .sidebar { width: 220px; flex-shrink: 0; background: #1e3c72; display: flex; flex-direction: column; min-height: 100vh; position: fixed; top: 0; left: 0; height: 100%; }
   .sb-top { padding: 22px 18px 18px; border-bottom: 0.5px solid rgba(255,255,255,0.1); text-align: center; }
   .sb-icon { font-size: 32px; color: #fff; }
   .sb-name { font-size: 14px; font-weight: 500; color: #fff; margin-top: 6px; }
   .sb-sub  { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
   .sb-nav  { flex: 1; padding: 16px 10px; }
-  .sbi {
-    display: flex; align-items: center; gap: 9px;
-    padding: 9px 12px; border-radius: 8px;
-    color: rgba(255,255,255,0.6); font-size: 12px; margin-bottom: 2px; cursor: pointer;
-    text-decoration: none; transition: background 0.15s, color 0.15s;
-  }
+  .sbi { display: flex; align-items: center; gap: 9px; padding: 9px 12px; border-radius: 8px; color: rgba(255,255,255,0.6); font-size: 12px; margin-bottom: 2px; cursor: pointer; text-decoration: none; transition: background 0.15s, color 0.15s; }
   .sbi i { font-size: 16px; width: 18px; flex-shrink: 0; }
   .sbi.active { background: rgba(255,255,255,0.15); color: #fff; }
   .sbi:not(.active):hover { background: rgba(255,255,255,0.07); color: #fff; }
@@ -124,7 +116,7 @@
     <div class="body-wrap">
       <div class="stats3">
         <div class="stat"><div class="stat-ic"><i class="ti ti-calendar-check"></i></div><div><div class="stat-num" id="stat-jadwal">—</div><div class="stat-lbl">Jadwal hari ini</div></div></div>
-        <div class="stat"><div class="stat-ic"><i class="ti ti-users"></i></div><div><div class="stat-num" id="stat-siswa">—</div><div class="stat-lbl">Total siswa diajar</div></div></div>
+        <div class="stat"><div class="stat-ic"><i class="ti ti-users"></i></div><div><div class="stat-num" id="stat-kelas">—</div><div class="stat-lbl">Kelas yang diajar</div></div></div>
         <div class="stat"><div class="stat-ic"><i class="ti ti-book"></i></div><div><div class="stat-num" id="stat-mapel">—</div><div class="stat-lbl">Mata pelajaran</div></div></div>
       </div>
       <div class="card">
@@ -146,8 +138,6 @@
           <div class="fg"><label>Kelas</label>
             <select id="nilai-kelas" onchange="loadSiswaUntukNilai()">
               <option value="">Pilih kelas</option>
-              <option>XII TKJ 1</option><option>XII TKJ 2</option>
-              <option>XI TKJ 1</option><option>XI TKJ 2</option>
             </select>
           </div>
           <div class="fg"><label>Mata pelajaran</label>
@@ -185,8 +175,6 @@
           <div class="fg"><label>Kelas</label>
             <select id="absen-kelas" onchange="loadSiswaUntukAbsensi()">
               <option value="">Pilih kelas</option>
-              <option>XII TKJ 1</option><option>XII TKJ 2</option>
-              <option>XI TKJ 1</option><option>XI TKJ 2</option>
             </select>
           </div>
           <div class="fg"><label>Mata pelajaran</label>
@@ -225,17 +213,18 @@ const API = 'https://smksti-pgri-11-serpong-production.up.railway.app/api';
 let TOKEN = localStorage.getItem('token');
 let USER  = JSON.parse(localStorage.getItem('user') || '{}');
 let absensiMap = {};
+let mySchedules = []; // jadwal khusus guru ini
 
 if (!TOKEN || USER.role !== 'teacher') window.location.href = 'index.html';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const nama = USER.name || USER.username || 'Guru';
+  const nama = USER.name || 'Guru';
   document.getElementById('sb-nama').textContent = nama;
   document.getElementById('sb-ava').textContent  = ini(nama);
 
   const today = new Date();
   const dateStr = today.toLocaleDateString('id-ID', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-  document.getElementById('date-pill').textContent      = dateStr;
+  document.getElementById('date-pill').textContent       = dateStr;
   document.getElementById('absen-date-pill').textContent = dateStr;
   document.getElementById('absen-tanggal').value = today.toISOString().split('T')[0];
 
@@ -249,37 +238,31 @@ function showPage(name, el) {
   if (el) el.classList.add('active');
 }
 
-// ── Dashboard ──
+// ── Dashboard: pakai /my-schedule ──
 async function loadDashboard() {
   try {
-    // Ambil jadwal guru hari ini dari /api/schedules
-    const res = await apiFetch('/schedules');
-    const allSchedules = res?.data || res?.schedules || (Array.isArray(res) ? res : []);
+    const res = await apiFetch('/schedules/my-schedule');
+    mySchedules = res?.data || (Array.isArray(res) ? res : []);
 
-    // Filter jadwal milik guru yang login (by teacher id)
-    const mySchedules = allSchedules.filter(s =>
-      s.teacher_id === USER.id || s.User?.id === USER.id ||
-      s.teacher?.id === USER.id
-    );
-
-    // Filter hari ini
+    // Hari ini
     const hariMap = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
     const hariIni = hariMap[new Date().getDay()];
-    const jadwalHariIni = mySchedules.filter(s => (s.day || s.hari) === hariIni);
+    const jadwalHariIni = mySchedules.filter(s => s.day === hariIni);
 
+    // Stat: jadwal hari ini
     document.getElementById('stat-jadwal').textContent = jadwalHariIni.length;
 
-    // Hitung unik kelas yang diajar
-    const kelasUnik = [...new Set(mySchedules.map(s => s.Class?.name || s.class_name).filter(Boolean))];
-    // Estimasi siswa: 20 per kelas
-    document.getElementById('stat-siswa').textContent = kelasUnik.length * 20 || '—';
+    // Stat: kelas unik
+    const kelasUnik = [...new Set(mySchedules.map(s => s.Class?.name).filter(Boolean))];
+    document.getElementById('stat-kelas').textContent = kelasUnik.length;
 
-    // Hitung mapel unik
-    const mapelUnik = [...new Set(mySchedules.map(s => s.Subject?.name || s.subject_name).filter(Boolean))];
-    document.getElementById('stat-mapel').textContent = mapelUnik.length || '—';
+    // Stat: mapel unik
+    const mapelUnik = [...new Set(mySchedules.map(s => s.Subject?.name).filter(Boolean))];
+    document.getElementById('stat-mapel').textContent = mapelUnik.length;
 
-    // Populate dropdown mapel
-    populateMapel(mapelUnik);
+    // Populate dropdown kelas & mapel
+    populateKelasOptions(kelasUnik);
+    populateMapelOptions(mapelUnik);
 
     renderJadwal(jadwalHariIni);
   } catch(e) {
@@ -298,8 +281,8 @@ function renderJadwal(list) {
   tbody.innerHTML = list.map(j => `
     <tr>
       <td>${j.start_time||'—'} – ${j.end_time||'—'}</td>
-      <td>${j.Subject?.name || j.subject_name || '—'}</td>
-      <td><span class="badge b-blue">${j.Class?.name || j.class_name || '—'}</span></td>
+      <td>${j.Subject?.name || '—'}</td>
+      <td><span class="badge b-blue">${j.Class?.name || '—'}</span></td>
       <td>${j.room||'—'}</td>
       <td><button class="btn-prim" style="font-size:10px;padding:5px 10px" onclick="showPage('absensi',document.querySelectorAll('.sbi')[2])">
         <i class="ti ti-clipboard-check"></i>Absensi
@@ -308,7 +291,16 @@ function renderJadwal(list) {
   `).join('');
 }
 
-function populateMapel(list) {
+function populateKelasOptions(list) {
+  ['nilai-kelas','absen-kelas'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = '<option value="">Pilih kelas</option>' +
+      list.map(k => `<option value="${k}">${k}</option>`).join('');
+  });
+}
+
+function populateMapelOptions(list) {
   ['nilai-mapel','absen-mapel'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -364,7 +356,7 @@ async function simpanNilai() {
   const jenis = document.getElementById('nilai-jenis').value;
   if (!kelas || !mapel) { alert('Pilih kelas dan mata pelajaran terlebih dahulu'); return; }
   const inputs = document.querySelectorAll('.nilai-inp');
-  const payload = Array.from(inputs).filter(i => i.value).map(i => ({
+  const payload = Array.from(inputs).filter(i => i.value && parseInt(i.value) > 0).map(i => ({
     nis: i.dataset.nis, nilai: parseInt(i.value), jenis_penilaian: jenis, mata_pelajaran: mapel
   }));
   if (!payload.length) { alert('Belum ada nilai yang diisi'); return; }
