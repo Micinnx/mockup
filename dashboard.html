@@ -6,132 +6,62 @@
 <title>Dashboard Akademik SMKS-TI PGRI 11 Serpong</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.x/dist/tabler-icons.min.css">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f1f5f9; min-height: 100vh; display: flex; color: #1e293b; }
-
-/* ── SIDEBAR ── */
-.sidebar {
-  width: 220px; flex-shrink: 0; background: #1e3c72;
-  display: flex; flex-direction: column; min-height: 100vh;
-  position: fixed; top: 0; left: 0; height: 100%; z-index: 50;
-}
+.sidebar { width: 220px; flex-shrink: 0; background: #1e3c72; display: flex; flex-direction: column; min-height: 100vh; position: fixed; top: 0; left: 0; height: 100%; z-index: 50; }
 .sb-top { padding: 22px 18px 18px; border-bottom: 0.5px solid rgba(255,255,255,0.1); text-align: center; }
 .sb-top i { font-size: 30px; color: #fff; }
 .sb-name { font-size: 13px; font-weight: 600; color: #fff; margin-top: 6px; }
 .sb-sub  { font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 2px; letter-spacing: .5px; }
 .sb-nav  { flex: 1; padding: 14px 10px; overflow-y: auto; }
-.nav-item {
-  display: flex; align-items: center; gap: 9px;
-  padding: 9px 12px; border-radius: 8px;
-  color: rgba(255,255,255,0.6); font-size: 12px; margin-bottom: 2px;
-  cursor: pointer; transition: background 0.15s, color 0.15s; user-select: none;
-}
+.nav-item { display: flex; align-items: center; gap: 9px; padding: 9px 12px; border-radius: 8px; color: rgba(255,255,255,0.6); font-size: 12px; margin-bottom: 2px; cursor: pointer; transition: background 0.15s, color 0.15s; user-select: none; }
 .nav-item i { font-size: 15px; width: 17px; flex-shrink: 0; }
 .nav-item.active { background: rgba(255,255,255,0.15); color: #fff; }
 .nav-item:not(.active):hover { background: rgba(255,255,255,0.07); color: #fff; }
 .sb-foot { padding: 12px 10px; border-top: 0.5px solid rgba(255,255,255,0.1); }
-.sb-user-wrap {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 10px; border-radius: 8px; background: rgba(255,255,255,0.08); margin-bottom: 8px;
-}
-.sb-ava {
-  width: 28px; height: 28px; border-radius: 50%; background: #2a5298;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 10px; font-weight: 600; flex-shrink: 0;
-}
+.sb-user-wrap { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; background: rgba(255,255,255,0.08); margin-bottom: 8px; }
+.sb-ava { width: 28px; height: 28px; border-radius: 50%; background: #2a5298; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; font-weight: 600; flex-shrink: 0; }
 .sb-uname { font-size: 11px; font-weight: 500; color: #fff; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sb-urole { font-size: 10px; color: rgba(255,255,255,0.5); }
-.logout-btn {
-  display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;
-  padding: 8px 12px; border-radius: 8px; background: rgba(239,68,68,0.12);
-  color: #fca5a5; border: none; font-size: 12px; cursor: pointer; font-family: inherit;
-  transition: background 0.15s;
-}
+.logout-btn { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 8px 12px; border-radius: 8px; background: rgba(239,68,68,0.12); color: #fca5a5; border: none; font-size: 12px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
 .logout-btn:hover { background: rgba(239,68,68,0.22); }
-
-/* ── MAIN ── */
 .main { margin-left: 220px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
-
-/* ── HEADER ── */
-.hifi-header {
-  background: #fff; padding: 11px 22px;
-  display: flex; justify-content: space-between; align-items: center;
-  border-bottom: 0.5px solid #e2e8f0; position: sticky; top: 0; z-index: 40;
-  gap: 16px;
-}
-.header-search {
-  display: flex; align-items: center; gap: 8px;
-  background: #f8fafc; border: 0.5px solid #e2e8f0; border-radius: 8px;
-  padding: 7px 12px; flex: 1; max-width: 360px; position: relative;
-}
+.hifi-header { background: #fff; padding: 11px 22px; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5px solid #e2e8f0; position: sticky; top: 0; z-index: 40; gap: 16px; }
+.header-search { display: flex; align-items: center; gap: 8px; background: #f8fafc; border: 0.5px solid #e2e8f0; border-radius: 8px; padding: 7px 12px; flex: 1; max-width: 360px; position: relative; }
 .header-search i { color: #94a3b8; font-size: 13px; flex-shrink: 0; }
 .header-search input { border: none; background: transparent; font-size: 12px; color: #1e293b; width: 100%; outline: none; font-family: inherit; }
 .header-search input::placeholder { color: #94a3b8; }
 .header-right { display: flex; align-items: center; gap: 12px; }
 .notif-wrap { position: relative; cursor: pointer; }
 .notif-wrap i { font-size: 18px; color: #64748b; }
-.notif-badge {
-  position: absolute; top: -5px; right: -7px;
-  background: #ef4444; color: #fff; font-size: 9px; font-weight: 600;
-  padding: 1px 4px; border-radius: 10px; min-width: 16px; text-align: center;
-}
+.notif-badge { position: absolute; top: -5px; right: -7px; background: #ef4444; color: #fff; font-size: 9px; font-weight: 600; padding: 1px 4px; border-radius: 10px; min-width: 16px; text-align: center; }
 .user-profile-hdr { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.user-profile-hdr img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+.user-profile-hdr img { width: 32px; height: 32px; border-radius: 50%; }
 .user-name-hdr { font-size: 12px; font-weight: 500; color: #1e293b; }
 .user-class-hdr { font-size: 10px; color: #64748b; }
-
-/* ── CONTENT ── */
 .hifi-content { padding: 20px 22px; flex: 1; }
-
-/* ── STAT CARDS ── */
 .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
 .stat-card { background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 12px; }
 .stat-icon { width: 44px; height: 44px; border-radius: 10px; background: #1e3c72; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .stat-icon i { font-size: 20px; color: #fff; }
 .stat-value { font-size: 22px; font-weight: 600; color: #1e293b; line-height: 1; }
 .stat-label { font-size: 11px; color: #64748b; margin-top: 3px; }
-
-/* ── CARD ── */
-.card-premium {
-  background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px;
-  padding: 16px; margin-bottom: 14px;
-}
+.card-premium { background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
 .card-premium h3 { font-size: 13px; font-weight: 500; color: #1e293b; margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
 .card-premium h3 i { color: #1e3c72; }
-
-/* ── TABLE ── */
 .table-premium { width: 100%; border-collapse: collapse; }
-.table-premium th {
-  background: #f8fafc; padding: 8px 10px; text-align: left;
-  font-size: 10px; font-weight: 500; color: #64748b;
-  border-bottom: 0.5px solid #e2e8f0; text-transform: uppercase; letter-spacing: .5px;
-}
+.table-premium th { background: #f8fafc; padding: 8px 10px; text-align: left; font-size: 10px; font-weight: 500; color: #64748b; border-bottom: 0.5px solid #e2e8f0; text-transform: uppercase; letter-spacing: .5px; }
 .table-premium td { padding: 9px 10px; border-bottom: 0.5px solid #e2e8f0; font-size: 12px; color: #1e293b; vertical-align: middle; }
 .table-premium tr:last-child td { border-bottom: none; }
-
-/* ── BADGES ── */
 .badge-success { background: #f0fdf4; color: #16a34a; padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 500; }
 .badge-primary { background: #eff6ff; color: #1d4ed8; padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 500; }
 .badge-warning { background: #fffbeb; color: #d97706; padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 500; }
 .badge-danger  { background: #fef2f2; color: #dc2626; padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 500; }
-
-/* ── BUTTONS ── */
-.btn-primary {
-  background: #1e3c72; color: #fff; border: none;
-  padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 500;
-  cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-family: inherit;
-}
+.btn-primary { background: #1e3c72; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-family: inherit; }
 .btn-primary:hover { background: #2a5298; }
-
-/* ── NOTIF DROPDOWN ── */
-.notif-dropdown {
-  position: fixed; top: 56px; right: 16px; width: 300px;
-  background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.12); z-index: 200;
-  display: none; overflow: hidden;
-}
+.btn-sm { padding: 5px 10px; font-size: 11px; border-radius: 6px; }
+.notif-dropdown { position: fixed; top: 56px; right: 16px; width: 300px; background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); z-index: 200; display: none; overflow: hidden; }
 .notif-dropdown.show { display: block; }
 .notif-header { padding: 12px 14px; border-bottom: 0.5px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
 .notif-header h4 { font-size: 12px; font-weight: 500; color: #1e293b; display: flex; align-items: center; gap: 6px; }
@@ -146,14 +76,7 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; back
 .notif-item-msg   { font-size: 10px; color: #64748b; margin-top: 2px; }
 .notif-empty { padding: 20px; text-align: center; color: #94a3b8; font-size: 12px; }
 .notif-empty i { font-size: 22px; display: block; margin-bottom: 6px; }
-
-/* ── SEARCH DROPDOWN ── */
-.search-dropdown {
-  position: fixed; top: 56px; left: 232px; width: 340px;
-  background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.1); z-index: 200;
-  display: none; overflow: hidden; max-height: 360px; overflow-y: auto;
-}
+.search-dropdown { position: fixed; top: 56px; left: 232px; width: 340px; background: #fff; border: 0.5px solid #e2e8f0; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); z-index: 200; display: none; overflow: hidden; max-height: 360px; overflow-y: auto; }
 .search-dropdown.show { display: block; }
 .search-category { padding: 8px 12px 4px; font-size: 10px; font-weight: 500; color: #94a3b8; text-transform: uppercase; letter-spacing: .5px; }
 .search-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; cursor: pointer; }
@@ -163,29 +86,23 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; back
 .search-item-title    { font-size: 12px; font-weight: 500; color: #1e293b; }
 .search-item-subtitle { font-size: 10px; color: #64748b; }
 .search-loading, .search-empty { padding: 16px 12px; font-size: 12px; color: #64748b; text-align: center; }
-
-/* ── PENGUMUMAN ── */
-.pengumuman-item {
-  padding: 12px; border-radius: 8px; margin-bottom: 10px;
-  border-left: 3px solid #1e3c72; background: #f8fafc;
-}
-.pengumuman-item h4 { font-size: 12px; font-weight: 500; color: #1e293b; margin-bottom: 4px; }
-.pengumuman-item p  { font-size: 11px; color: #64748b; }
-
-/* ── PROFIL ── */
-.profil-wrap { display: flex; gap: 24px; flex-wrap: wrap; }
-.profil-avatar { text-align: center; }
-.profil-avatar img { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 8px; }
-.profil-info { flex: 1; }
-
-/* ── LOADING ── */
 .loading-spinner { padding: 40px; text-align: center; color: #94a3b8; font-size: 13px; }
 .loading-spinner i { font-size: 24px; display: block; margin-bottom: 8px; }
+.pengumuman-item { padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 3px solid #1e3c72; background: #f8fafc; }
+.pengumuman-item h4 { font-size: 12px; font-weight: 500; color: #1e293b; margin-bottom: 4px; }
+.pengumuman-item p  { font-size: 11px; color: #64748b; }
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; align-items: center; justify-content: center; }
+.modal-overlay.show { display: flex; }
+.modal-box { background: #fff; border-radius: 12px; padding: 24px; width: 90%; max-width: 480px; }
+.modal-box h3 { font-size: 14px; font-weight: 500; margin-bottom: 16px; }
+.fg { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+.fg label { font-size: 10px; font-weight: 500; color: #64748b; text-transform: uppercase; letter-spacing: .4px; }
+.fg input, .fg textarea { padding: 8px 10px; border: 0.5px solid #e2e8f0; border-radius: 8px; font-size: 12px; font-family: inherit; }
+.fg textarea { resize: vertical; min-height: 70px; }
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sb-top">
     <i class="fas fa-school"></i>
@@ -196,23 +113,21 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; back
     <div class="nav-item active" data-tab="home"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></div>
     <div class="nav-item" data-tab="jadwal"><i class="fas fa-calendar-week"></i><span>Jadwal Pelajaran</span></div>
     <div class="nav-item" data-tab="nilai"><i class="fas fa-star"></i><span>Nilai &amp; Raport</span></div>
-    <div class="nav-item" data-tab="pelajaran"><i class="fas fa-book-open"></i><span>Mata Pelajaran</span></div>
+    <div class="nav-item" data-tab="materi"><i class="fas fa-book-open"></i><span>Materi</span></div>
+    <div class="nav-item" data-tab="tugas"><i class="fas fa-clipboard-list"></i><span>Tugas</span></div>
+    <div class="nav-item" data-tab="pelajaran"><i class="fas fa-book"></i><span>Mata Pelajaran</span></div>
     <div class="nav-item" data-tab="tagihan"><i class="fas fa-receipt"></i><span>Tagihan</span></div>
     <div class="nav-item" data-tab="profil"><i class="fas fa-user-graduate"></i><span>Profil Saya</span></div>
   </nav>
   <div class="sb-foot">
     <div class="sb-user-wrap">
       <div class="sb-ava" id="sbAva">US</div>
-      <div>
-        <div class="sb-uname" id="sbNama">Memuat...</div>
-        <div class="sb-urole" id="sbKelas">—</div>
-      </div>
+      <div><div class="sb-uname" id="sbNama">Memuat...</div><div class="sb-urole" id="sbKelas">—</div></div>
     </div>
     <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Keluar</button>
   </div>
 </aside>
 
-<!-- MAIN -->
 <div class="main">
   <header class="hifi-header">
     <div class="header-search">
@@ -233,38 +148,44 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; back
       </div>
     </div>
   </header>
-
   <div class="hifi-content" id="dynamicContent">
     <div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i>Memuat data...</div>
   </div>
 </div>
 
-<!-- NOTIF DROPDOWN -->
 <div class="notif-dropdown" id="notifDropdown">
-  <div class="notif-header">
-    <h4><i class="fas fa-bell"></i>Notifikasi</h4>
-    <span id="notifCount">0 notifikasi</span>
-  </div>
-  <div class="notif-list" id="notifList">
-    <div class="notif-empty"><i class="fas fa-bell-slash"></i>Memuat notifikasi...</div>
+  <div class="notif-header"><h4><i class="fas fa-bell"></i>Notifikasi</h4><span id="notifCount">0 notifikasi</span></div>
+  <div class="notif-list" id="notifList"><div class="notif-empty"><i class="fas fa-bell-slash"></i>Memuat...</div></div>
+</div>
+<div class="search-dropdown" id="searchDropdown"></div>
+
+<!-- Modal Submit Tugas -->
+<div class="modal-overlay" id="modal-submit">
+  <div class="modal-box">
+    <h3><i class="fas fa-upload" style="color:#1e3c72;margin-right:6px"></i>Kumpulkan Tugas</h3>
+    <input type="hidden" id="submit-assignment-id">
+    <div class="fg">
+      <label>Link File / URL (Google Drive, dll)</label>
+      <input type="text" id="submit-file-url" placeholder="https://drive.google.com/...">
+    </div>
+    <div class="fg">
+      <label>Catatan (opsional)</label>
+      <textarea id="submit-notes" placeholder="Catatan untuk guru..."></textarea>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px">
+      <button onclick="tutupModal()" style="padding:8px 16px;border:0.5px solid #e2e8f0;border-radius:8px;background:#fff;cursor:pointer;font-size:12px;font-family:inherit">Batal</button>
+      <button onclick="kirimTugas()" class="btn-primary btn-sm"><i class="fas fa-paper-plane"></i>Kirim</button>
+    </div>
   </div>
 </div>
 
-<!-- SEARCH DROPDOWN -->
-<div class="search-dropdown" id="searchDropdown"></div>
-
 <script>
 const BASE_URL = 'https://smksti-pgri-11-serpong-production.up.railway.app';
-
 function getToken() { return localStorage.getItem('token'); }
 function getUser()  { const u = localStorage.getItem('user'); return u ? JSON.parse(u) : null; }
 function isLoggedIn() { return !!getToken() && !!getUser(); }
-
-function logout() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
-  window.location.href = 'index.html';
-}
+function logout() { localStorage.removeItem('token'); localStorage.removeItem('user'); window.location.href = 'index.html'; }
+function ini(name) { if (!name) return 'US'; return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase(); }
 
 async function apiFetch(endpoint, options = {}) {
   try {
@@ -273,34 +194,20 @@ async function apiFetch(endpoint, options = {}) {
       headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${getToken()}`, ...(options.headers||{}) }
     });
     return await res.json();
-  } catch(err) {
-    console.error('API Error:', err);
-    return { success: false, message: 'Koneksi gagal' };
-  }
+  } catch(err) { return { success: false, message: 'Koneksi gagal' }; }
 }
 
-function ini(name) {
-  if (!name) return 'US';
-  return name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
-}
+if (!isLoggedIn() || getUser().role !== 'student') window.location.href = 'index.html';
 
-// ── Auth guard ──
-if (!isLoggedIn() || getUser().role !== 'student') {
-  window.location.href = 'index.html';
-}
-
-// ── UI update ──
 function updateUI() {
   const user = getUser();
   if (!user) return;
-  document.getElementById('userNameHeader').textContent  = user.name || '—';
-  document.getElementById('userClassHeader').textContent = user.class_name || user.role || '—';
-  document.getElementById('sbNama').textContent  = user.name || '—';
-  document.getElementById('sbKelas').textContent = user.class_name || '—';
+  document.getElementById('userNameHeader').textContent  = user.name||'—';
+  document.getElementById('userClassHeader').textContent = user.class_name||'—';
+  document.getElementById('sbNama').textContent  = user.name||'—';
+  document.getElementById('sbKelas').textContent = user.class_name||'—';
   document.getElementById('sbAva').textContent   = ini(user.name);
-  const avatar = `https://ui-avatars.com/api/?background=1e3c72&color=fff&name=${encodeURIComponent(user.name||'U')}`;
-  document.getElementById('userAvatar').src = avatar;
-
+  document.getElementById('userAvatar').src = `https://ui-avatars.com/api/?background=1e3c72&color=fff&name=${encodeURIComponent(user.name||'U')}`;
   document.getElementById('userProfileHeader').addEventListener('click', () => {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.querySelector('.nav-item[data-tab="profil"]')?.classList.add('active');
@@ -308,70 +215,43 @@ function updateUI() {
   });
 }
 
-// ── Components ──
-const components = {
+// ── SUBMIT TUGAS ──
+function submitTugas(assignmentId) {
+  document.getElementById('submit-assignment-id').value = assignmentId;
+  document.getElementById('submit-file-url').value = '';
+  document.getElementById('submit-notes').value = '';
+  document.getElementById('modal-submit').classList.add('show');
+}
+function tutupModal() { document.getElementById('modal-submit').classList.remove('show'); }
+async function kirimTugas() {
+  const assignmentId = document.getElementById('submit-assignment-id').value;
+  const fileUrl = document.getElementById('submit-file-url').value.trim();
+  const notes   = document.getElementById('submit-notes').value.trim();
+  if (!fileUrl && !notes) { alert('Isi link file atau catatan terlebih dahulu'); return; }
+  const res = await apiFetch('/api/submissions', { method:'POST', body: JSON.stringify({ assignment_id: parseInt(assignmentId), file_url: fileUrl||null, notes: notes||null }) });
+  if (res.success) { alert('Tugas berhasil dikumpulkan!'); tutupModal(); render('tugas', getUser()); }
+  else alert('Gagal: ' + res.message);
+}
 
+// ── COMPONENTS ──
+const components = {
   home: async (user) => {
     const res = await apiFetch('/api/dashboard');
     const d = res.success ? res.data : {};
     const today = new Date().toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-
     const jadwalHtml = d.jadwal_hari_ini?.length
-      ? d.jadwal_hari_ini.map(j => `
-          <tr>
-            <td>${j.jam||'—'}</td>
-            <td>${j.mata_pelajaran||'—'}</td>
-            <td>${j.guru||'—'}</td>
-            <td>${j.ruang||'—'}</td>
-          </tr>`).join('')
+      ? d.jadwal_hari_ini.map(j => `<tr><td>${j.jam||'—'}</td><td>${j.mata_pelajaran||'—'}</td><td>${j.guru||'—'}</td><td>${j.ruang||'—'}</td></tr>`).join('')
       : '<tr><td colspan="4" style="text-align:center;color:#94a3b8;font-style:italic">Tidak ada jadwal hari ini</td></tr>';
-
-    // Ambil pengumuman dari notifications
-    const notifRes = await apiFetch('/api/notifications');
-    const pengumumanList = notifRes.success ? (notifRes.data?.notifications || []) : [];
-    const pengumumanHtml = pengumumanList.length
-      ? pengumumanList.slice(0,3).map(p => `
-          <div class="pengumuman-item">
-            <h4><i class="fas ${p.icon||'fa-bullhorn'}" style="color:#1e3c72;margin-right:6px"></i>${p.title||'—'}</h4>
-            <p>${p.message||'—'}</p>
-          </div>`).join('')
-      : `<div class="pengumuman-item" style="border-left-color:#d97706;background:#fffbeb">
-           <h4>📋 Pendaftaran Ujian Sekolah</h4>
-           <p>Pendaftaran ujian sekolah dibuka hingga 30 April 2024.</p>
-         </div>
-         <div class="pengumuman-item" style="border-left-color:#d97706;background:#fffbeb">
-           <h4>🎓 Pengambilan Sertifikat Kompetensi</h4>
-           <p>Sertifikat dapat diambil mulai 1-20 April 2024.</p>
-         </div>`;
-
     return `
       <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-          <div><div class="stat-value">${d.stats?.jadwal_hari_ini??'—'}</div><div class="stat-label">Jadwal Hari Ini</div></div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-          <div><div class="stat-value">${d.stats?.rata_rata_nilai??'—'}</div><div class="stat-label">Rata-rata Nilai</div></div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon"><i class="fas fa-user-check"></i></div>
-          <div><div class="stat-value">${d.stats?.kehadiran_persen!=null?d.stats.kehadiran_persen+'%':'—'}</div><div class="stat-label">Kehadiran</div></div>
-        </div>
+        <div class="stat-card"><div class="stat-icon"><i class="fas fa-calendar-check"></i></div><div><div class="stat-value">${d.stats?.jadwal_hari_ini??'—'}</div><div class="stat-label">Jadwal Hari Ini</div></div></div>
+        <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div><div class="stat-value">${d.stats?.rata_rata_nilai??'—'}</div><div class="stat-label">Rata-rata Nilai</div></div></div>
+        <div class="stat-card"><div class="stat-icon"><i class="fas fa-user-check"></i></div><div><div class="stat-value">${d.stats?.kehadiran_persen!=null?d.stats.kehadiran_persen+'%':'—'}</div><div class="stat-label">Kehadiran</div></div></div>
       </div>
       <div class="card-premium">
         <h3><i class="fas fa-chalkboard-user"></i>Jadwal Hari Ini — ${today}</h3>
-        <table class="table-premium">
-          <thead><tr><th>Jam</th><th>Mata Pelajaran</th><th>Guru</th><th>Ruang</th></tr></thead>
-          <tbody>${jadwalHtml}</tbody>
-        </table>
-        <button class="btn-primary" id="lihatJadwalBtn" style="margin-top:14px">
-          <i class="fas fa-calendar-week"></i>Lihat Jadwal Lengkap
-        </button>
-      </div>
-      <div class="card-premium">
-        <h3><i class="fas fa-bullhorn"></i>Pengumuman Terkini</h3>
-        ${pengumumanHtml}
+        <table class="table-premium"><thead><tr><th>Jam</th><th>Mata Pelajaran</th><th>Guru</th><th>Ruang</th></tr></thead><tbody>${jadwalHtml}</tbody></table>
+        <button class="btn-primary" id="lihatJadwalBtn" style="margin-top:14px"><i class="fas fa-calendar-week"></i>Lihat Jadwal Lengkap</button>
       </div>`;
   },
 
@@ -381,182 +261,126 @@ const components = {
     const schedules = all.filter(s => s.Class?.name === user.class_name);
     const days = ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
     let rows = '';
-    if (!schedules.length) {
-      rows = '<tr><td colspan="5" style="text-align:center;color:#94a3b8;font-style:italic">Belum ada jadwal</td></tr>';
-    } else {
+    if (!schedules.length) { rows = '<tr><td colspan="5" style="text-align:center;color:#94a3b8;font-style:italic">Belum ada jadwal</td></tr>'; }
+    else {
       const grouped = {};
-      schedules.forEach(s => { const d = s.day||'Lainnya'; if(!grouped[d]) grouped[d]=[]; grouped[d].push(s); });
-      days.forEach(day => {
-        if (grouped[day]) {
-          grouped[day].forEach((s,i) => {
-            rows += `<tr>
-              ${i===0?`<td rowspan="${grouped[day].length}"><strong>${day}</strong></td>`:''}
-              <td>${s.start_time||'—'}–${s.end_time||'—'}</td>
-              <td>${s.Subject?.name||s.subject_name||'—'}</td>
-              <td>${s.teacher?.name||'—'}</td>
-              <td>${s.room||'—'}</td>
-            </tr>`;
-          });
-        }
-      });
+      schedules.forEach(s => { const d=s.day||'Lainnya'; if(!grouped[d]) grouped[d]=[]; grouped[d].push(s); });
+      days.forEach(day => { if(grouped[day]) grouped[day].forEach((s,i) => { rows+=`<tr>${i===0?`<td rowspan="${grouped[day].length}"><strong>${day}</strong></td>`:''}<td>${s.start_time||'—'}–${s.end_time||'—'}</td><td>${s.Subject?.name||'—'}</td><td>${s.teacher?.name||'—'}</td><td>${s.room||'—'}</td></tr>`; }); });
     }
-    return `
-      <div class="card-premium">
-        <h3><i class="fas fa-calendar-alt"></i>Jadwal Pelajaran</h3>
-        <table class="table-premium">
-          <thead><tr><th>Hari</th><th>Jam</th><th>Mata Pelajaran</th><th>Guru</th><th>Ruang</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>`;
+    return `<div class="card-premium"><h3><i class="fas fa-calendar-alt"></i>Jadwal Pelajaran</h3><table class="table-premium"><thead><tr><th>Hari</th><th>Jam</th><th>Mata Pelajaran</th><th>Guru</th><th>Ruang</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   },
 
   nilai: async (user) => {
     const res = await apiFetch(`/api/exam-results/student/${user.id}`);
     const results = res.success ? res.data : [];
-    let rows = ''; let total = 0; let count = 0;
-    if (!results.length) {
-      rows = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;font-style:italic">Belum ada nilai</td></tr>';
-    } else {
+    let rows = '', total = 0, count = 0;
+    if (!results.length) { rows = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;font-style:italic">Belum ada nilai</td></tr>'; }
+    else {
       results.forEach(r => {
-        const avg = r.rata_rata ?? ((r.tugas+r.uts+r.uas)/3).toFixed(1);
-        if (typeof avg === 'number' || !isNaN(parseFloat(avg))) { total += parseFloat(avg); count++; }
-        const grade = r.predikat || (avg>=90?'A':avg>=80?'B+':avg>=75?'B':avg>=60?'C':'D');
+        const avg = r.rata_rata ?? 0;
+        if (avg > 0) { total += parseFloat(avg); count++; }
+        const grade = r.predikat||'—';
         const bc = grade==='A'?'badge-success':grade.startsWith('B')?'badge-primary':'badge-warning';
+        const srcBadge = r.source==='assessment'
+          ? '<span style="font-size:9px;background:#d1fae5;color:#065f46;padding:2px 5px;border-radius:8px;margin-left:4px">Guru</span>' : '';
+        rows += `<tr><td>${r.mata_pelajaran||'—'}${srcBadge}</td><td style="text-align:center">${r.tugas??'—'}</td><td style="text-align:center">${r.uts??'—'}</td><td style="text-align:center">${r.uas??'—'}</td><td style="text-align:center"><strong>${avg}</strong></td><td><span class="${bc}">${grade}</span></td></tr>`;
+      });
+    }
+    const rataRata = count > 0 ? (total/count).toFixed(1) : '—';
+    return `<div class="card-premium">
+      <h3><i class="fas fa-star"></i>Nilai &amp; Raport</h3>
+      <p style="font-size:11px;color:#64748b;margin-bottom:12px"><i class="fas fa-info-circle"></i> Badge <strong>Guru</strong> = nilai yang diinput langsung oleh guru</p>
+      <table class="table-premium"><thead><tr><th>Mata Pelajaran</th><th>Tugas (30%)</th><th>UTS (30%)</th><th>UAS (40%)</th><th>Final</th><th>Predikat</th></tr></thead><tbody>${rows}</tbody></table>
+      <div style="margin-top:16px;padding:14px;background:linear-gradient(135deg,#1e3c72,#2a5298);border-radius:10px;color:#fff;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <div><strong>📊 Rata-rata Rapor:</strong> ${rataRata}</div>
+        <div><strong>✅ Kenaikan Kelas:</strong> ${rataRata!=='—'&&parseFloat(rataRata)>=70?'Berhak':'Perlu Evaluasi'}</div>
+      </div></div>`;
+  },
+
+  materi: async (user) => {
+    const res = await apiFetch(`/api/materials?class_name=${encodeURIComponent(user.class_name)}`);
+    const list = res.success ? res.data : [];
+    let rows = '';
+    if (!list.length) { rows = '<tr><td colspan="4" style="text-align:center;color:#94a3b8;font-style:italic">Belum ada materi dari guru</td></tr>'; }
+    else {
+      list.forEach(m => {
         rows += `<tr>
-          <td>${r.mata_pelajaran||'—'}</td>
-          <td>${r.tugas??'—'}</td><td>${r.uts??'—'}</td><td>${r.uas??'—'}</td>
-          <td><strong>${avg}</strong></td>
-          <td><span class="${bc}">${grade}</span></td>
+          <td><strong>${m.title}</strong>${m.description?`<br><small style="color:#64748b">${m.description}</small>`:''}</td>
+          <td>${m.Subject?.name||'—'}</td>
+          <td>${m.teacher?.name||'—'}</td>
+          <td>${m.file_url?`<a href="${m.file_url}" target="_blank" style="color:#1d4ed8;text-decoration:none;font-size:11px"><i class="fas fa-external-link-alt"></i> Buka File</a>`:'—'}</td>
         </tr>`;
       });
     }
-    const rataRata = count>0 ? (total/count).toFixed(1) : '—';
-    return `
-      <div class="card-premium">
-        <h3><i class="fas fa-star"></i>Nilai &amp; Raport</h3>
-        <table class="table-premium">
-          <thead><tr><th>Mata Pelajaran</th><th>Tugas</th><th>UTS</th><th>UAS</th><th>Rata-rata</th><th>Predikat</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-        <div style="margin-top:16px;padding:14px;background:linear-gradient(135deg,#1e3c72,#2a5298);border-radius:10px;color:#fff;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
-          <div><strong>📊 Rata-rata Rapor:</strong> ${rataRata}</div>
-          <div><strong>✅ Kenaikan Kelas:</strong> ${rataRata!=='—'&&parseFloat(rataRata)>=70?'Berhak':'Perlu Evaluasi'}</div>
-        </div>
-      </div>`;
+    return `<div class="card-premium">
+      <h3><i class="fas fa-book-open"></i>Materi Pelajaran</h3>
+      <table class="table-premium"><thead><tr><th>Judul Materi</th><th>Mata Pelajaran</th><th>Guru</th><th>File</th></tr></thead><tbody>${rows}</tbody></table>
+    </div>`;
+  },
+
+  tugas: async (user) => {
+    const res = await apiFetch(`/api/assignments?class_name=${encodeURIComponent(user.class_name)}`);
+    const list = res.success ? res.data : [];
+    const subRes = await apiFetch('/api/submissions/my');
+    const mySubmissions = subRes.success ? subRes.data : [];
+    const submittedMap = {};
+    mySubmissions.forEach(s => { submittedMap[s.assignment_id] = s; });
+    let rows = '';
+    if (!list.length) { rows = '<tr><td colspan="5" style="text-align:center;color:#94a3b8;font-style:italic">Belum ada tugas dari guru</td></tr>'; }
+    else {
+      list.forEach(t => {
+        const sub = submittedMap[t.id];
+        const statusBadge = sub
+          ? `<span class="badge-success">✅ Dikumpulkan</span>${sub.score!=null?`<br><small style="color:#16a34a">Nilai: <strong>${sub.score}</strong></small>`:''}`
+          : `<span class="badge-warning">⏳ Belum dikumpulkan</span>`;
+        const deadline = t.deadline ? new Date(t.deadline).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : 'Tidak ada';
+        const actionBtn = `<button onclick="submitTugas(${t.id})" class="btn-primary btn-sm"><i class="fas fa-${sub?'edit':'upload'}"></i>${sub?'Perbarui':'Kumpulkan'}</button>`;
+        rows += `<tr>
+          <td><strong>${t.title}</strong>${t.description?`<br><small style="color:#64748b">${t.description.substring(0,80)}</small>`:''}</td>
+          <td>${t.Subject?.name||'—'}</td>
+          <td style="font-size:11px">${deadline}</td>
+          <td>${statusBadge}</td>
+          <td>${actionBtn}</td>
+        </tr>`;
+      });
+    }
+    return `<div class="card-premium">
+      <h3><i class="fas fa-clipboard-list"></i>Tugas</h3>
+      <table class="table-premium"><thead><tr><th>Judul Tugas</th><th>Mata Pelajaran</th><th>Deadline</th><th>Status</th><th>Aksi</th></tr></thead><tbody>${rows}</tbody></table>
+    </div>`;
   },
 
   pelajaran: async (user) => {
     const res = await apiFetch('/api/subjects');
     const subjects = res.success ? res.data : [];
-    let rows = ''; let totalJam = 0;
-    if (!subjects.length) {
-      rows = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;font-style:italic">Belum ada mata pelajaran</td></tr>';
-    } else {
-      subjects.forEach((s,i) => {
-        totalJam += s.hours_per_week||0;
-        rows += `<tr>
-          <td>${i+1}</td>
-          <td>${s.code||'—'}</td>
-          <td>${s.name}</td>
-          <td>${s.group||'—'}</td>
-          <td>${s.hours_per_week||'—'} JP</td>
-          <td>${s.teacher_name||'—'}</td>
-        </tr>`;
-      });
-    }
-    return `
-      <div class="card-premium">
-        <h3><i class="fas fa-book"></i>Daftar Mata Pelajaran</h3>
-        <table class="table-premium">
-          <thead><tr><th>No</th><th>Kode</th><th>Mata Pelajaran</th><th>Kelompok</th><th>Jam/Minggu</th><th>Guru</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-        <p style="margin-top:12px;font-size:11px;color:#64748b">📌 Total Jam Pelajaran per Minggu: <strong>${totalJam} JP</strong></p>
-      </div>`;
+    let rows = '', totalJam = 0;
+    if (!subjects.length) { rows = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;font-style:italic">Belum ada mata pelajaran</td></tr>'; }
+    else { subjects.forEach((s,i) => { totalJam+=s.hours_per_week||0; rows+=`<tr><td>${i+1}</td><td>${s.code||'—'}</td><td>${s.name}</td><td>${s.group||'—'}</td><td>${s.hours_per_week||'—'} JP</td><td>${s.teacher_name||'—'}</td></tr>`; }); }
+    return `<div class="card-premium"><h3><i class="fas fa-book"></i>Daftar Mata Pelajaran</h3><table class="table-premium"><thead><tr><th>No</th><th>Kode</th><th>Mata Pelajaran</th><th>Kelompok</th><th>Jam/Minggu</th><th>Guru</th></tr></thead><tbody>${rows}</tbody></table><p style="margin-top:12px;font-size:11px;color:#64748b">📌 Total: <strong>${totalJam} JP/minggu</strong></p></div>`;
   },
 
   tagihan: async (user) => {
     const res = await apiFetch(`/api/invoices/student/${user.id}`);
     const invoices = res.success ? res.data : [];
-    let rows = ''; let totalBelum = 0; let belumList = [];
-    if (!invoices.length) {
-      rows = '<tr><td colspan="5" style="text-align:center;color:#94a3b8;font-style:italic">Belum ada tagihan</td></tr>';
-    } else {
-      invoices.forEach(inv => {
-        const lunas = inv.status==='paid'||inv.status==='lunas';
-        const nominal = parseInt(inv.amount||inv.nominal||0);
-        if (!lunas) { totalBelum+=nominal; belumList.push(inv.type||inv.jenis||'Tagihan'); }
-        rows += `<tr>
-          <td>${inv.type||inv.jenis||'—'}</td>
-          <td>${inv.period||inv.periode||'—'}</td>
-          <td>Rp ${nominal.toLocaleString('id-ID')}</td>
-          <td><span class="${lunas?'badge-success':'badge-warning'}">${lunas?'Lunas':'Belum Lunas'}</span></td>
-          <td>${inv.due_date?new Date(inv.due_date).toLocaleDateString('id-ID'):(inv.jatuh_tempo?new Date(inv.jatuh_tempo).toLocaleDateString('id-ID'):'—')}</td>
-        </tr>`;
-      });
-    }
-    return `
-      <div class="card-premium">
-        <h3><i class="fas fa-receipt"></i>Informasi Tagihan</h3>
-        <table class="table-premium">
-          <thead><tr><th>Jenis</th><th>Periode</th><th>Nominal</th><th>Status</th><th>Jatuh Tempo</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-        ${totalBelum>0?`
-        <div style="margin-top:14px;padding:14px;background:#fffbeb;border-radius:10px;border:0.5px solid #fde68a">
-          <strong>💰 Total Tagihan Belum Dibayar: Rp ${totalBelum.toLocaleString('id-ID')}</strong><br>
-          <small style="color:#64748b">(${belumList.join(' + ')})</small>
-        </div>
-        <button class="btn-primary" id="bayarBtn" style="margin-top:12px">
-          <i class="fas fa-credit-card"></i>Bayar Sekarang
-        </button>
-        <div id="notifBayar" style="display:none;margin-top:10px;padding:10px;background:#d1fae5;border-radius:8px;font-size:12px">
-          ✅ Simulasi: Mengarahkan ke halaman pembayaran...
-        </div>`:
-        `<div style="margin-top:14px;padding:14px;background:#f0fdf4;border-radius:10px">
-          <strong>✅ Semua tagihan sudah lunas!</strong>
-        </div>`}
-      </div>`;
+    let rows = '', totalBelum = 0, belumList = [];
+    if (!invoices.length) { rows = '<tr><td colspan="5" style="text-align:center;color:#94a3b8;font-style:italic">Belum ada tagihan</td></tr>'; }
+    else { invoices.forEach(inv => { const lunas=inv.status==='paid'||inv.status==='lunas'; const nominal=parseInt(inv.amount||inv.nominal||0); if(!lunas){totalBelum+=nominal;belumList.push(inv.type||inv.jenis||'Tagihan');} rows+=`<tr><td>${inv.type||inv.jenis||'—'}</td><td>${inv.period||inv.periode||'—'}</td><td>Rp ${nominal.toLocaleString('id-ID')}</td><td><span class="${lunas?'badge-success':'badge-warning'}">${lunas?'Lunas':'Belum Lunas'}</span></td><td>${inv.jatuh_tempo?new Date(inv.jatuh_tempo).toLocaleDateString('id-ID'):'—'}</td></tr>`; }); }
+    return `<div class="card-premium"><h3><i class="fas fa-receipt"></i>Informasi Tagihan</h3><table class="table-premium"><thead><tr><th>Jenis</th><th>Periode</th><th>Nominal</th><th>Status</th><th>Jatuh Tempo</th></tr></thead><tbody>${rows}</tbody></table>${totalBelum>0?`<div style="margin-top:14px;padding:14px;background:#fffbeb;border-radius:10px;border:0.5px solid #fde68a"><strong>💰 Total Belum Dibayar: Rp ${totalBelum.toLocaleString('id-ID')}</strong><br><small style="color:#64748b">(${belumList.join(' + ')})</small></div>`:`<div style="margin-top:14px;padding:14px;background:#f0fdf4;border-radius:10px"><strong>✅ Semua tagihan sudah lunas!</strong></div>`}</div>`;
   },
 
   profil: async (user) => {
-    return `
-      <div class="card-premium">
-        <h3><i class="fas fa-user-graduate"></i>Profil Saya</h3>
-        <div class="profil-wrap">
-          <div class="profil-avatar">
-            <img src="https://ui-avatars.com/api/?background=1e3c72&color=fff&name=${encodeURIComponent(user.name||'U')}&size=100" alt="Avatar">
-            <h3 style="margin-top:10px;font-size:13px">${user.name||'—'}</h3>
-            <span class="badge-primary" style="display:inline-block;margin-top:4px">${user.class_name||'—'}</span>
-          </div>
-          <div class="profil-info">
-            <table class="table-premium">
-              <tr><td style="width:140px;color:#64748b">NIS</td><td><strong>${user.nis||'—'}</strong></td></tr>
-              <tr><td style="color:#64748b">Kelas</td><td>${user.class_name||'—'}</td></tr>
-              <tr><td style="color:#64748b">Wali Kelas</td><td>${user.wali_kelas||'—'}</td></tr>
-              <tr><td style="color:#64748b">No. Telepon</td><td>${user.phone||'—'}</td></tr>
-              <tr><td style="color:#64748b">Email</td><td>${user.email||'—'}</td></tr>
-              <tr><td style="color:#64748b">Alamat</td><td>${user.address||'—'}</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>`;
+    return `<div class="card-premium"><h3><i class="fas fa-user-graduate"></i>Profil Saya</h3><div style="display:flex;gap:24px;flex-wrap:wrap"><div style="text-align:center"><img src="https://ui-avatars.com/api/?background=1e3c72&color=fff&name=${encodeURIComponent(user.name||'U')}&size=100" style="width:100px;height:100px;border-radius:50%"><h3 style="margin-top:10px;font-size:13px">${user.name||'—'}</h3><span class="badge-primary" style="display:inline-block;margin-top:4px">${user.class_name||'—'}</span></div><div style="flex:1"><table class="table-premium"><tr><td style="color:#64748b;width:130px">NIS</td><td><strong>${user.nis||'—'}</strong></td></tr><tr><td style="color:#64748b">Kelas</td><td>${user.class_name||'—'}</td></tr><tr><td style="color:#64748b">Wali Kelas</td><td>${user.wali_kelas||'—'}</td></tr><tr><td style="color:#64748b">No. Telepon</td><td>${user.phone||'—'}</td></tr><tr><td style="color:#64748b">Email</td><td>${user.email||'—'}</td></tr><tr><td style="color:#64748b">Alamat</td><td>${user.address||'—'}</td></tr></table></div></div></div>`;
   }
 };
 
-// ── Render engine ──
+// ── Render ──
 let currentTab = 'home';
 async function render(tab, user) {
   const container = document.getElementById('dynamicContent');
   if (!container) return;
   container.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i>Memuat data...</div>';
-  try {
-    container.innerHTML = await components[tab](user);
-    attachEvents(tab);
-  } catch(err) {
-    container.innerHTML = '<div style="padding:20px;color:#dc2626;font-size:12px">Gagal memuat data. Coba refresh halaman.</div>';
-    console.error(err);
-  }
+  try { container.innerHTML = await components[tab](user); attachEvents(tab); }
+  catch(err) { container.innerHTML = '<div style="padding:20px;color:#dc2626;font-size:12px">Gagal memuat data.</div>'; console.error(err); }
   currentTab = tab;
 }
 
@@ -571,7 +395,7 @@ function attachEvents(tab) {
   if (tab === 'tagihan') {
     document.getElementById('bayarBtn')?.addEventListener('click', () => {
       const notif = document.getElementById('notifBayar');
-      if (notif) { notif.style.display='block'; setTimeout(()=>notif.style.display='none', 3000); }
+      if (notif) { notif.style.display='block'; setTimeout(()=>notif.style.display='none',3000); }
     });
   }
 }
@@ -582,23 +406,12 @@ async function loadNotifications() {
   if (!res.success) return;
   const { total, notifications } = res.data;
   const badge = document.getElementById('notifBadge');
-  const count = document.getElementById('notifCount');
   if (badge) badge.textContent = total>9?'9+':total;
-  if (count) count.textContent = `${total} notifikasi`;
+  document.getElementById('notifCount').textContent = `${total} notifikasi`;
   const list = document.getElementById('notifList');
   if (!list) return;
-  if (!notifications?.length) {
-    list.innerHTML = '<div class="notif-empty"><i class="fas fa-check-circle"></i>Tidak ada notifikasi baru</div>';
-    return;
-  }
-  list.innerHTML = notifications.map(n => `
-    <div class="notif-item" data-tab="${n.tab||'home'}">
-      <div class="notif-item-icon" style="background:${n.color||'#1e3c72'}"><i class="fas ${n.icon||'fa-bell'}"></i></div>
-      <div>
-        <div class="notif-item-title">${n.title||'—'}</div>
-        <div class="notif-item-msg">${n.message||'—'}</div>
-      </div>
-    </div>`).join('');
+  if (!notifications?.length) { list.innerHTML = '<div class="notif-empty"><i class="fas fa-check-circle"></i>Tidak ada notifikasi baru</div>'; return; }
+  list.innerHTML = notifications.map(n => `<div class="notif-item" data-tab="${n.tab||'home'}"><div class="notif-item-icon" style="background:${n.color||'#1e3c72'}"><i class="fas ${n.icon||'fa-bell'}"></i></div><div><div class="notif-item-title">${n.title||'—'}</div><div class="notif-item-msg">${n.message||'—'}</div></div></div>`).join('');
   list.querySelectorAll('.notif-item').forEach(item => {
     item.addEventListener('click', () => {
       const tab = item.getAttribute('data-tab');
@@ -613,16 +426,15 @@ async function loadNotifications() {
 function initNotifToggle() {
   const bell = document.getElementById('notifBell');
   const dropdown = document.getElementById('notifDropdown');
-  if (!bell || !dropdown) return;
+  if (!bell||!dropdown) return;
   bell.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('show'); });
   document.addEventListener('click', e => { if (!bell.contains(e.target)) dropdown.classList.remove('show'); });
 }
 
-// ── Search ──
 function initSearch() {
   const input = document.getElementById('searchInput');
   const dropdown = document.getElementById('searchDropdown');
-  if (!input || !dropdown) return;
+  if (!input||!dropdown) return;
   let timeout = null;
   input.addEventListener('input', () => {
     const q = input.value.trim();
@@ -632,22 +444,14 @@ function initSearch() {
     dropdown.innerHTML = '<div class="search-loading"><i class="fas fa-spinner fa-spin"></i> Mencari...</div>';
     timeout = setTimeout(async () => {
       const res = await apiFetch(`/api/search?q=${encodeURIComponent(q)}`);
-      if (!res.success || !res.data?.length) {
-        dropdown.innerHTML = `<div class="search-empty">Tidak ada hasil untuk "<strong>${q}</strong>"</div>`;
-        return;
-      }
+      if (!res.success||!res.data?.length) { dropdown.innerHTML=`<div class="search-empty">Tidak ada hasil</div>`; return; }
       const grouped = {};
       res.data.forEach(item => { if(!grouped[item.type]) grouped[item.type]=[]; grouped[item.type].push(item); });
-      const labels = { pelajaran:'Mata Pelajaran', jadwal:'Jadwal', tagihan:'Tagihan', nilai:'Nilai', pengumuman:'Pengumuman' };
+      const labels = { pelajaran:'Mata Pelajaran', jadwal:'Jadwal', tagihan:'Tagihan', nilai:'Nilai' };
       let html = '';
       Object.keys(grouped).forEach(type => {
         html += `<div class="search-category">${labels[type]||type}</div>`;
-        grouped[type].forEach(item => {
-          html += `<div class="search-item" data-tab="${item.tab||'home'}">
-            <div class="search-item-icon" style="background:${item.color||'#1e3c72'}"><i class="fas ${item.icon||'fa-circle'}"></i></div>
-            <div><div class="search-item-title">${item.title||'—'}</div><div class="search-item-subtitle">${item.subtitle||''}</div></div>
-          </div>`;
-        });
+        grouped[type].forEach(item => { html += `<div class="search-item" data-tab="${item.tab||'home'}"><div class="search-item-icon" style="background:${item.color||'#1e3c72'}"><i class="fas ${item.icon||'fa-circle'}"></i></div><div><div class="search-item-title">${item.title||'—'}</div><div class="search-item-subtitle">${item.subtitle||''}</div></div></div>`; });
       });
       dropdown.innerHTML = html;
       dropdown.querySelectorAll('.search-item').forEach(item => {
@@ -657,35 +461,29 @@ function initSearch() {
           document.querySelector(`.nav-item[data-tab="${tab}"]`)?.classList.add('active');
           render(tab, getUser());
           dropdown.classList.remove('show');
-          input.value = '';
+          input.value='';
         });
       });
     }, 400);
   });
-  document.addEventListener('click', e => {
-    if (!input.closest('.header-search').contains(e.target)) dropdown.classList.remove('show');
-  });
+  document.addEventListener('click', e => { if (!input.closest('.header-search').contains(e.target)) dropdown.classList.remove('show'); });
   input.addEventListener('keydown', e => { if(e.key==='Escape'){dropdown.classList.remove('show');input.value='';} });
 }
 
 // ── Init ──
-if (window.location.pathname.includes('dashboard.html')) {
-  updateUI();
-  render('home', getUser());
-  loadNotifications();
-  initNotifToggle();
-  initSearch();
-
-  document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', function() {
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      this.classList.add('active');
-      render(this.getAttribute('data-tab'), getUser());
-    });
+updateUI();
+render('home', getUser());
+loadNotifications();
+initNotifToggle();
+initSearch();
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function() {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    this.classList.add('active');
+    render(this.getAttribute('data-tab'), getUser());
   });
-
-  document.getElementById('logoutBtn')?.addEventListener('click', logout);
-}
+});
+document.getElementById('logoutBtn')?.addEventListener('click', logout);
 </script>
 </body>
 </html>
