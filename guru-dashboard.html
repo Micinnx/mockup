@@ -143,8 +143,7 @@
           </div>
           <div class="fg"><label>Semester</label>
             <select id="nilai-semester">
-              <option value="4">Genap (Semester 4)</option>
-              <option value="6">Genap (Semester 6)</option>
+            <option value="">Semester Genap 2025/2026</option>
             </select>
           </div>
           <div class="fg"><label>Tahun ajaran</label>
@@ -372,18 +371,20 @@ function populateAllKelas(list) {
 }
 
 function populateAllMapel(schedules) {
-  // Untuk setiap kelas, simpan mapel yang diajarkan
   window._kelasMapelMap = {};
   for (const s of schedules) {
     const kelas = s.Class?.name;
-    const mapel = s.Subject?.name;
-    const subjectId = s.Subject?.id || s.subject_id;
-    if (!kelas || !mapel) continue;
+    const mapelName = s.Subject?.name;
+    // Coba semua kemungkinan field subject_id
+    const subjectId = s.Subject?.id || s.subject_id || s.SubjectId;
+    if (!kelas || !mapelName) continue;
     if (!window._kelasMapelMap[kelas]) window._kelasMapelMap[kelas] = [];
-    if (!window._kelasMapelMap[kelas].find(m => m.name === mapel)) {
-      window._kelasMapelMap[kelas].push({ id: subjectId, name: mapel });
+    const sudahAda = window._kelasMapelMap[kelas].find(m => m.name === mapelName);
+    if (!sudahAda) {
+      window._kelasMapelMap[kelas].push({ id: subjectId, name: mapelName });
     }
   }
+  console.log('KelasMapelMap:', window._kelasMapelMap); // debug
 }
 
 function updateMapelDropdown(kelasId, mapelSelectId) {
