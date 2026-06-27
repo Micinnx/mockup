@@ -695,9 +695,9 @@ async function simpanAbsensi() {
 }
 
 // ── EVENT LISTENER untuk dropdown kelas → update mapel ──
-document.getElementById('materi-kelas').addEventListener('change', () => updateMapelDropdown('materi-kelas', 'materi-mapel-select'));
-document.getElementById('tugas-kelas').addEventListener('change',  () => updateMapelDropdown('tugas-kelas',  'tugas-mapel-select'));
-document.getElementById('nilai-kelas').addEventListener('change',  () => {
+document.getElementById('nilai-kelas').addEventListener('change', () => {
+  console.log('Kelas dipilih:', document.getElementById('nilai-kelas').value);
+  console.log('_kelasMapelMap saat ini:', window._kelasMapelMap);
   updateMapelDropdown('nilai-kelas', 'nilai-mapel-select');
   loadSiswaUntukNilai();
 });
