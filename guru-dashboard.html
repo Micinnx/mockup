@@ -134,7 +134,7 @@
       <div class="card">
         <div class="form-grid">
           <div class="fg"><label>Kelas</label>
-            <select id="nilai-kelas" onchange="loadSiswaUntukNilai()">
+            <select id="nilai-kelas" onchange="onNilaiKelasChange()">
               <option value="">Pilih kelas</option>
             </select>
           </div>
@@ -371,20 +371,18 @@ function populateAllKelas(list) {
 }
 
 function populateAllMapel(schedules) {
+  // Untuk setiap kelas, simpan mapel yang diajarkan
   window._kelasMapelMap = {};
   for (const s of schedules) {
     const kelas = s.Class?.name;
-    const mapelName = s.Subject?.name;
-    // Coba semua kemungkinan field subject_id
-    const subjectId = s.Subject?.id || s.subject_id || s.SubjectId;
-    if (!kelas || !mapelName) continue;
+    const mapel = s.Subject?.name;
+    const subjectId = s.Subject?.id || s.subject_id;
+    if (!kelas || !mapel) continue;
     if (!window._kelasMapelMap[kelas]) window._kelasMapelMap[kelas] = [];
-    const sudahAda = window._kelasMapelMap[kelas].find(m => m.name === mapelName);
-    if (!sudahAda) {
-      window._kelasMapelMap[kelas].push({ id: subjectId, name: mapelName });
+    if (!window._kelasMapelMap[kelas].find(m => m.name === mapel)) {
+      window._kelasMapelMap[kelas].push({ id: subjectId, name: mapel });
     }
   }
-  console.log('KelasMapelMap:', window._kelasMapelMap); // debug
 }
 
 function updateMapelDropdown(kelasId, mapelSelectId) {
@@ -695,9 +693,9 @@ async function simpanAbsensi() {
 }
 
 // ── EVENT LISTENER untuk dropdown kelas → update mapel ──
-document.getElementById('nilai-kelas').addEventListener('change', () => {
-  console.log('Kelas dipilih:', document.getElementById('nilai-kelas').value);
-  console.log('_kelasMapelMap saat ini:', window._kelasMapelMap);
+document.getElementById('materi-kelas').addEventListener('change', () => updateMapelDropdown('materi-kelas', 'materi-mapel-select'));
+document.getElementById('tugas-kelas').addEventListener('change',  () => updateMapelDropdown('tugas-kelas',  'tugas-mapel-select'));
+document.getElementById('nilai-kelas').addEventListener('change',  () => {
   updateMapelDropdown('nilai-kelas', 'nilai-mapel-select');
   loadSiswaUntukNilai();
 });
