@@ -351,13 +351,37 @@ const components = {
   },
 
   pelajaran: async (user) => {
-    const res = await apiFetch('/api/subjects');
-    const subjects = res.success ? res.data : [];
-    let rows = '', totalJam = 0;
-    if (!subjects.length) { rows = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;font-style:italic">Belum ada mata pelajaran</td></tr>'; }
-    else { subjects.forEach((s,i) => { totalJam+=s.hours_per_week||0; rows+=`<tr><td>${i+1}</td><td>${s.code||'—'}</td><td>${s.name}</td><td>${s.group||'—'}</td><td>${s.hours_per_week||'—'} JP</td><td>${s.teacher_name||'—'}</td></tr>`; }); }
-    return `<div class="card-premium"><h3><i class="fas fa-book"></i>Daftar Mata Pelajaran</h3><table class="table-premium"><thead><tr><th>No</th><th>Kode</th><th>Mata Pelajaran</th><th>Kelompok</th><th>Jam/Minggu</th><th>Guru</th></tr></thead><tbody>${rows}</tbody></table><p style="margin-top:12px;font-size:11px;color:#64748b">📌 Total: <strong>${totalJam} JP/minggu</strong></p></div>`;
-  },
+  const res = await apiFetch('/api/subjects');
+  const allSubjects = res.success ? res.data : [];
+
+  // Tentukan jurusan dari class_name siswa
+  const className = user.class_name || '';
+  const isTKJ = className.includes('TKJ');
+  const isRPL = className.includes('RPL');
+
+  // Filter: ambil mapel Umum/Layanan (semua kelas) + kejuruan sesuai jurusan
+  const subjects = allSubjects.filter(s => {
+    const group = s.group || '';
+    if (group === 'Umum' || group === 'Layanan') return true;
+    if (isTKJ && group === 'Kejuruan TKJ') return true;
+    if (isRPL && group === 'Kejuruan RPL') return true;
+    return false;
+  });
+
+  let rows = '', totalJam = 0;
+  if (!subjects.length) {
+    rows = '<tr><td colspan="6" style="text-align:center;color:#94a3b8;font-style:italic">Belum ada mata pelajaran</td></tr>';
+  } else {
+    subjects.forEach((s,i) => {
+      totalJam += s.hours_per_week||0;
+      rows += `<tr><td>${i+1}</td><td>${s.code||'—'}</td><td>${s.name}</td><td>${s.group||'—'}</td><td>${s.hours_per_week||'—'} JP</td><td>${s.teacher_name||'—'}</td></tr>`;
+    });
+  }
+  return `<div class="card-premium"><h3><i class="fas fa-book"></i>Daftar Mata Pelajaran</h3>
+    <table class="table-premium"><thead><tr><th>No</th><th>Kode</th><th>Mata Pelajaran</th><th>Kelompok</th><th>Jam/Minggu</th><th>Guru</th></tr></thead>
+    <tbody>${rows}</tbody></table>
+    <p style="margin-top:12px;font-size:11px;color:#64748b">📌 Total: <strong>${totalJam} JP/minggu</strong></p></div>`;
+},
 
   tagihan: async (user) => {
     const res = await apiFetch(`/api/invoices/student/${user.id}`);
