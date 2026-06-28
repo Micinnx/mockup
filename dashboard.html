@@ -361,12 +361,12 @@ const components = {
 
   // Filter: ambil mapel Umum/Layanan (semua kelas) + kejuruan sesuai jurusan
   const subjects = allSubjects.filter(s => {
-    const group = s.group || '';
-    if (group === 'Umum' || group === 'Layanan') return true;
-    if (isTKJ && group === 'Kejuruan TKJ') return true;
-    if (isRPL && group === 'Kejuruan RPL') return true;
-    return false;
-  });
+  const group = s.group || '';
+  if (group === 'Umum' || group === 'Layanan') return true;
+  if (isTKJ && (group === 'Kejuruan TKJ' || group === 'Kompetensi Keahlian')) return true;
+  if (isRPL && (group === 'Kejuruan RPL' || group === 'Kompetensi Keahlian')) return true;
+  return false;
+});
 
   let rows = '', totalJam = 0;
   if (!subjects.length) {
